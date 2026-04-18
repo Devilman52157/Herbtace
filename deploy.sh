@@ -6,7 +6,7 @@
 
 # ⚠️ 注意：这里已经为你改为了【纯域名】，不要带端口号！
 YOUR_DOMAIN="gameking131445.ccwu.cc"        
-GEMINI_API_KEY="AIzaSyD-z2cdQTgDgUFeesDZ1BsFXOIw8S0reBk"   
+"   
 
 # ============================================================
 #  第1步：安装依赖
