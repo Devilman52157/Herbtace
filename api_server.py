@@ -1,0 +1,225 @@
+"""
+本草溯源 - AI 中转服务 (v3 - OpenAI 兼容通用版)
+===============================================================
+支持任意 OpenAI 兼容 API：智谱AI / 硅基流动 / 通义千问 / OpenAI 等
+  /api/chat    - 普通文本对话
+  /api/vision  - 舌/面照片识别，返回体质辨证 JSON
+  /api/health  - 健康检查
+
+推荐服务商（按免费额度排序）：
+  智谱AI    https://open.bigmodel.cn      GLM-4V-Flash 免费
+  硅基流动  https://siliconflow.cn        Qwen2-VL 免费
+  通义千问  https://dashscope.aliyun.com  有免费额度
+
+使用方法：
+1. pip install flask openai
+2. 配置下方环境变量后运行：python api_server.py
+"""
+
+from flask import Flask, request, jsonify
+from openai import OpenAI
+import os, base64, json, random
+
+app = Flask(__name__)
+
+def _log(*args):
+    print(*args, flush=True)
+
+# ===============================================================
+#  配置区 —— 修改这里切换服务商
+# ===============================================================
+
+# ---------- 智谱AI (默认，GLM-4V-Flash 免费) ----------
+API_KEY      = os.environ.get('AI_API_KEY', '你的智谱AI-Key')
+API_BASE_URL = os.environ.get('AI_BASE_URL', 'https://open.bigmodel.cn/api/paas/v4/')
+CHAT_MODEL   = os.environ.get('AI_CHAT_MODEL',   'glm-4-flash')   # 免费对话模型
+VISION_MODEL = os.environ.get('AI_VISION_MODEL', 'glm-4v-flash')  # 免费视觉模型
+
+# ---------- 硅基流动 (备选，取消注释即可) ----------
+# API_KEY      = os.environ.get('AI_API_KEY', '你的SiliconFlow-Key')
+# API_BASE_URL = 'https://api.siliconflow.cn/v1'
+# CHAT_MODEL   = 'Qwen/Qwen2.5-7B-Instruct'
+# VISION_MODEL = 'Qwen/Qwen2-VL-7B-Instruct'
+
+# ---------- 通义千问 (备选) ----------
+# API_KEY      = os.environ.get('AI_API_KEY', '你的DashScope-Key')
+# API_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+# CHAT_MODEL   = 'qwen-turbo'
+# VISION_MODEL = 'qwen-vl-max'
+
+# ---------- OpenAI (备选) ----------
+# API_KEY      = os.environ.get('AI_API_KEY', '你的OpenAI-Key')
+# API_BASE_URL = 'https://api.openai.com/v1'
+# CHAT_MODEL   = 'gpt-4o-mini'
+# VISION_MODEL = 'gpt-4o-mini'
+
+client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL)
+
+# ===============================================================
+#  System Prompts
+# ===============================================================
+AI_SYSTEM_PROMPT = """你是"本草溯源"平台的AI养生助手，名叫"本草君"。你是一位资深中医养生顾问，精通：
+- 中医体质辨识（九种体质）
+- 中药材功效与配伍禁忌
+- 四季养生、食疗方案
+- 穴位保健与经络调理
+
+回复要求：
+1. 用专业但通俗易懂的语言回答
+2. 适当推荐平台上的产品（枸杞菊花养生茶、红枣桂圆暖身茶、玫瑰红糖姜茶、艾草安神香铃、薄荷醒神风铃）
+3. 回答控制在200字以内，分条列出要点
+4. 遇到严重疾病症状时，明确建议用户就医，不可替代医疗诊断
+5. 语气温和专业，像老中医跟患者聊天"""
+
+VISION_SYSTEM_PROMPT = """你是一位精通中医望诊的资深中医师，正在为一位用户分析其上传的舌象/面色照片。
+
+请严格返回以下 JSON 格式（不要有任何额外文字）：
+
+{
+  "constitution": "主体质类型，从九种体质中选：平和/气虚/阳虚/阴虚/痰湿/湿热/血瘀/气郁/特禀",
+  "subtype": "偏颇程度，可填：轻度偏颇/偏颇/显著偏颇",
+  "confidence": 置信度数值60-95,
+  "summary": "简短辨证概括，例如：主证痰湿 · 兼见气虚",
+  "scores": [
+    {"k":"痰湿","v":数值0-10,"c":"#B5452A"},
+    {"k":"气虚","v":数值0-10,"c":"#C4935A"},
+    {"k":"阳虚","v":数值0-10,"c":"#D4694E"},
+    {"k":"阴虚","v":数值0-10,"c":"#4A7C59"},
+    {"k":"血瘀","v":数值0-10,"c":"#6B9E78"},
+    {"k":"平和","v":数值0-10,"c":"#8B7A6B"}
+  ],
+  "traits": ["舌象/面色特征1", "特征2", "特征3", "特征4"],
+  "blessing": "一段温暖的中医问诊寄语，2-3句，文雅有温度。支持<br>换行",
+  "recommendations": [
+    {"name":"产品名","desc":"功效描述<br>产地信息","price":数值,"unit":"盒","match":匹配度80-99,"icon":"i-tea或i-sprout或i-flower"}
+  ],
+  "followup": "一句后续引导语",
+  "quickQs": [
+    {"q":"完整问题","label":"短标题"}
+  ],
+  "feature_count": 识别的特征点数量30-60
+}
+
+平台可推荐产品：枸杞菊花养生茶、红枣桂圆暖身茶、玫瑰红糖姜茶、艾草安神香铃、薄荷醒神风铃、陈皮茯苓健脾茶、薏米赤豆祛湿饮。"""
+
+def expert_system_prompt(persona_id):
+    experts = {
+        'li':   {'name': '李明远 教授', 'title': '北京中医药大学 · 主任医师', 'speciality': '内科杂病 · 失眠眩晕'},
+        'wang': {'name': '王婉清 主任', 'title': '广州中医药大学 · 副主任医师', 'speciality': '妇科调理 · 食疗药膳'},
+        'chen': {'name': '陈国安 博士', 'title': '成都中医药大学 · 药学博士', 'speciality': '中药辨识 · 配伍禁忌'},
+    }
+    e = experts.get(persona_id)
+    if not e: return None
+    return f"你扮演「{e['name']}」。执业背景：{e['title']}，专长：{e['speciality']}。语气沉稳权威温和。遇到重疾建议就医。不自称AI。每次150-250字。"
+
+# ===============================================================
+#  降级数据
+# ===============================================================
+FALLBACK_REPORTS = [
+    {
+        "constitution": "痰湿", "subtype": "偏颇", "confidence": 86,
+        "summary": "主证痰湿 · 兼见气虚",
+        "scores": [{"k":"痰湿","v":8.4,"c":"#B5452A"},{"k":"气虚","v":6.2,"c":"#C4935A"},
+                   {"k":"阳虚","v":4.8,"c":"#D4694E"},{"k":"阴虚","v":3.1,"c":"#4A7C59"},
+                   {"k":"血瘀","v":2.5,"c":"#6B9E78"},{"k":"平和","v":3.6,"c":"#8B7A6B"}],
+        "traits": ["舌体胖大","舌苔白腻","边有齿痕","舌色淡红"],
+        "blessing": "湿邪缠绵，非一日可除。宜避生冷油腻。",
+        "recommendations": [{"name":"陈皮茯苓健脾茶","desc":"化湿健脾","price":88,"unit":"盒","match":96,"icon":"i-tea"}],
+        "followup": "若愿详述睡眠饮食，本草君可细化方案。",
+        "quickQs": [{"q":"痰湿忌口什么？","label":"忌口指南"}],
+        "feature_count": 42
+    }
+]
+
+def _random_fallback():
+    return json.loads(json.dumps(random.choice(FALLBACK_REPORTS)))
+
+# ===============================================================
+#  /api/chat
+# ===============================================================
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    try:
+        data = request.get_json() or {}
+        messages = data.get('messages', [])
+
+        sys_prompt = data.get('system_prompt')
+        persona = data.get('persona')
+        if not sys_prompt and persona:
+            sys_prompt = expert_system_prompt(persona)
+        if not sys_prompt:
+            sys_prompt = AI_SYSTEM_PROMPT
+
+        full_messages = [{'role': 'system', 'content': sys_prompt}] + messages
+
+        resp = client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=full_messages,
+            temperature=0.7,
+            max_tokens=800,
+        )
+        reply = resp.choices[0].message.content or '抱歉，服务暂时不可用。'
+        return jsonify({'reply': reply})
+
+    except Exception as e:
+        _log(f'[chat] Error: {e}')
+        return jsonify({'reply': '抱歉，服务暂时不可用。'}), 500
+
+# ===============================================================
+#  /api/vision
+# ===============================================================
+@app.route('/api/vision', methods=['POST'])
+def vision():
+    try:
+        data = request.get_json() or {}
+        img_data_url = data.get('image', '')
+        mode = data.get('mode', 'tongue')
+
+        if not img_data_url:
+            return jsonify({'error': 'missing image'}), 400
+
+        user_text = {'tongue': '请对这张舌象照片进行辨证，严格按JSON格式返回。',
+                     'face':   '请对这张面部照片进行辨证，严格按JSON格式返回。'
+                    }.get(mode, '请辨识此照片，严格按JSON格式返回。')
+
+        resp = client.chat.completions.create(
+            model=VISION_MODEL,
+            messages=[
+                {'role': 'system', 'content': VISION_SYSTEM_PROMPT},
+                {'role': 'user', 'content': [
+                    {'type': 'text', 'text': user_text},
+                    {'type': 'image_url', 'image_url': {'url': img_data_url}},
+                ]}
+            ],
+            temperature=0.4,
+            max_tokens=1500,
+        )
+
+        raw = resp.choices[0].message.content or ''
+        # 提取 JSON（有些模型会在 JSON 前后加说明文字）
+        match = __import__('re').search(r'\{[\s\S]+\}', raw)
+        report = json.loads(match.group() if match else raw)
+        return jsonify(report)
+
+    except Exception as e:
+        _log(f'[vision] Error: {e}')
+        fb = _random_fallback()
+        fb['_fallback'] = True
+        return jsonify(fb)
+
+# ===============================================================
+#  /api/health
+# ===============================================================
+@app.route('/api/health', methods=['GET'])
+def health():
+    return jsonify({
+        'status': 'ok',
+        'service': 'bencao-api-v3',
+        'chat_model': CHAT_MODEL,
+        'vision_model': VISION_MODEL,
+        'key_configured': bool(API_KEY and '你的' not in API_KEY)
+    })
+
+if __name__ == '__main__':
+    _log(f'Starting BenCao API Server (chat={CHAT_MODEL}, vision={VISION_MODEL}) on port 5000...')
+    app.run(host='127.0.0.1', port=5000)
