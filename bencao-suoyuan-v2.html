@@ -459,11 +459,12 @@ body{
   background:radial-gradient(circle at center,#2A5A7C,#0D1E2E);
 }
 .ar-cam::before{
-  content:'';position:absolute;inset:0;
+  content:'';position:absolute;inset:0;pointer-events:none;
   background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:20px 20px;
+  background-size:20px 20px;z-index:2;
 }
-.ar-frame{position:absolute;inset:40px;pointer-events:none;}
+.ar-cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+.ar-frame{position:absolute;inset:40px;pointer-events:none;z-index:3;}
 .ar-frame i{position:absolute;width:28px;height:28px;border:2px solid #3EE6C8;}
 .ar-frame i:nth-child(1){top:0;left:0;border-right:none;border-bottom:none;}
 .ar-frame i:nth-child(2){top:0;right:0;border-left:none;border-bottom:none;}
@@ -472,19 +473,23 @@ body{
 .ar-scan-line{
   position:absolute;left:40px;right:40px;top:40px;height:2px;
   background:linear-gradient(90deg,transparent,#3EE6C8,transparent);
-  box-shadow:0 0 12px #3EE6C8;opacity:0;
+  box-shadow:0 0 12px #3EE6C8;opacity:0;z-index:3;
 }
 .ar-cam.scanning .ar-scan-line{opacity:1;animation:arScan 1.8s ease-in-out infinite;}
 @keyframes arScan{
   0%{top:40px;}50%{top:calc(100% - 42px);}100%{top:40px;}
 }
-.ar-hint{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;color:#3EE6C8;letter-spacing:1.5px;}
-.ar-result{position:absolute;inset:50px 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation:fadeIn .3s ease;}
+.ar-hint{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;color:#3EE6C8;letter-spacing:1.5px;text-shadow:0 1px 4px rgba(0,0,0,.6);padding:0 16px;z-index:3;}
+.ar-result{position:absolute;inset:0;padding:24px 20px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation:fadeIn .3s ease;background:linear-gradient(180deg,rgba(13,30,46,.55) 0%,rgba(13,30,46,.92) 55%,rgba(13,30,46,.95) 100%);z-index:4;overflow-y:auto;}
 .ar-badge{padding:3px 10px;background:rgba(62,230,200,.2);color:#3EE6C8;font-size:10px;letter-spacing:2px;border-radius:3px;margin-bottom:10px;}
 .ar-rname{font-family:'Ma Shan Zheng',serif;font-size:28px;color:#fff;letter-spacing:4px;}
 .ar-rlatin{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-top:4px;font-style:italic;}
-.ar-conf{margin-top:14px;font-size:11px;color:rgba(255,255,255,.8);letter-spacing:1px;}
+.ar-conf{margin-top:10px;font-size:11px;color:rgba(255,255,255,.8);letter-spacing:1px;}
 .ar-conf b{color:#3EE6C8;font-size:16px;margin-left:2px;}
+.ar-rblock{margin-top:14px;width:100%;max-width:280px;text-align:left;}
+.ar-rlbl{font-size:10px;color:#3EE6C8;letter-spacing:2px;margin-bottom:3px;}
+.ar-rtxt{font-size:12px;color:rgba(255,255,255,.88);line-height:1.7;letter-spacing:.3px;margin-bottom:10px;}
+.ar-rmore{margin-top:6px;padding:6px 16px;background:rgba(62,230,200,.15);color:#3EE6C8;border:1px solid rgba(62,230,200,.4);border-radius:999px;font-size:11px;letter-spacing:2px;font-family:inherit;cursor:pointer;}
 .ar-action{
   margin:16px auto 0;display:block;padding:12px 40px;
   background:linear-gradient(135deg,var(--vermilion),#D4694E);color:#fff;border:none;border-radius:999px;
@@ -1989,6 +1994,8 @@ body{
   </div>
   <div class="ar-stage">
     <div class="ar-cam" id="arCam">
+      <video id="arVideo" autoplay playsinline muted></video>
+      <canvas id="arCanvas" style="display:none"></canvas>
       <div class="ar-frame"><i></i><i></i><i></i><i></i></div>
       <div class="ar-scan-line"></div>
       <div class="ar-hint" id="arHint">将药材置于取景框中 · 点击开始</div>
@@ -1997,6 +2004,10 @@ body{
         <div class="ar-rname" id="arRname">—</div>
         <div class="ar-rlatin" id="arRlatin">—</div>
         <div class="ar-conf">匹配度 <b id="arConf">—</b></div>
+        <div class="ar-rblock" id="arNatureBlock"><div class="ar-rlbl">性味归经</div><div class="ar-rtxt" id="arRnature"></div></div>
+        <div class="ar-rblock" id="arEffectBlock"><div class="ar-rlbl">主要功效</div><div class="ar-rtxt" id="arReffect"></div></div>
+        <div class="ar-rblock" id="arNotesBlock"><div class="ar-rlbl">识别依据</div><div class="ar-rtxt" id="arRnotes"></div></div>
+        <button class="ar-rmore" id="arMoreBtn" style="display:none" onclick="openARDetail()">查看详情 →</button>
       </div>
     </div>
     <button class="ar-action" id="arBtn" onclick="startAR()">开始识别</button>
@@ -2058,7 +2069,7 @@ body{
   </div>
   <div class="divider"><span>赚积分</span></div>
   <div class="earn-list">
-    <div class="earn-item"><div class="earn-ic"><svg><use href="#i-scan"/></svg></div><div class="earn-txt"><div class="earn-t">扫码溯源</div><div class="earn-s">每次 +5 积分</div></div><button class="earn-btn" onclick="earnPoints(5,'扫码溯源')">去扫码</button></div>
+    <div class="earn-item"><div class="earn-ic"><svg><use href="#i-scan"/></svg></div><div class="earn-txt"><div class="earn-t">扫码溯源</div><div class="earn-s">每次 +5 积分</div></div><button class="earn-btn" onclick="openScanner()">去扫码</button></div>
     <div class="earn-item"><div class="earn-ic"><svg><use href="#i-cart"/></svg></div><div class="earn-txt"><div class="earn-t">消费得分</div><div class="earn-s">消费 1 元 +1 积分</div></div><button class="earn-btn" onclick="showTab('shop')">去购物</button></div>
     <div class="earn-item"><div class="earn-ic"><svg><use href="#i-chat"/></svg></div><div class="earn-txt"><div class="earn-t">AI 问诊</div><div class="earn-s">每次 +2 积分</div></div><button class="earn-btn" onclick="openAIChat()">去问诊</button></div>
     <div class="earn-item"><div class="earn-ic"><svg><use href="#i-atlas"/></svg></div><div class="earn-txt"><div class="earn-t">每日签到</div><div class="earn-s">每日 +3 积分</div></div><button class="earn-btn" onclick="earnPoints(3,'每日签到')">签到</button></div>
@@ -2476,31 +2487,90 @@ function submitStudy(){
   setTimeout(()=>showToast('预约成功！客服将在 24 小时内与您联系'),200);
 }
 
-// ============ AR 识药 ============
-const AR_POOL=['juhua','shanyao','yimi','shashen','baizhi','ziwan','jiesui','yuzhu'];
-function openAR(){showPage('page-ar');}
-function startAR(){
+// ============ AR 识药（真实摄像头 + 视觉大模型） ============
+let arStream=null, arLastKnownId=null;
+async function openAR(){
+  showPage('page-ar');
+  const hint=document.getElementById('arHint');
+  const btn=document.getElementById('arBtn');
+  document.getElementById('arResult').style.display='none';
+  btn.disabled=false;btn.textContent='开始识别';
+  hint.textContent='正在启动摄像头...';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    hint.textContent='此浏览器不支持摄像头访问，请用手机端或 HTTPS 环境打开';
+    btn.disabled=true;return;
+  }
+  try{
+    arStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:960}}});
+    const v=document.getElementById('arVideo');
+    v.srcObject=arStream;
+    await v.play();
+    hint.textContent='将药材置于取景框中 · 点击开始识别';
+  }catch(e){
+    const msg=e.name==='NotAllowedError'?'请在浏览器设置中允许访问摄像头':(e.name==='NotFoundError'?'未检测到摄像头设备':'摄像头启动失败：'+(e.message||e.name));
+    hint.textContent=msg;
+  }
+}
+function stopAR(){
+  if(arStream){arStream.getTracks().forEach(t=>t.stop());arStream=null;}
+  const v=document.getElementById('arVideo');if(v)v.srcObject=null;
+  const cam=document.getElementById('arCam');if(cam)cam.classList.remove('scanning');
+}
+async function startAR(){
   const cam=document.getElementById('arCam');
   const btn=document.getElementById('arBtn');
   const hint=document.getElementById('arHint');
   const result=document.getElementById('arResult');
+  const v=document.getElementById('arVideo');
+  if(!arStream||!v.videoWidth){showToast('摄像头未就绪');return;}
+  // 抓取当前帧
+  const c=document.getElementById('arCanvas');
+  const w=v.videoWidth, h=v.videoHeight;
+  c.width=w;c.height=h;
+  c.getContext('2d').drawImage(v,0,0,w,h);
+  const dataUrl=c.toDataURL('image/jpeg',0.82);
   cam.classList.add('scanning');
   btn.disabled=true;btn.textContent='识别中...';
   hint.textContent='正在比对本草特征...';
   result.style.display='none';
-  setTimeout(()=>{
-    const pick=HERBS.find(h=>h.id===AR_POOL[Math.floor(Math.random()*AR_POOL.length)]);
-    const conf=(88+Math.random()*10).toFixed(1)+'%';
-    document.getElementById('arRname').textContent=pick.name;
-    document.getElementById('arRlatin').textContent=pick.latin;
-    document.getElementById('arConf').textContent=conf;
-    hint.textContent='';result.style.display='flex';
+  try{
+    const resp=await fetch('/api/vision',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({image:dataUrl,mode:'herb'})
+    });
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    const r=await resp.json();
     cam.classList.remove('scanning');
     btn.disabled=false;btn.textContent='再次识别';
+    if(r.matched===false){
+      hint.textContent=r.reason||'未能识别，请调整光线/角度重试';
+      return;
+    }
+    hint.textContent='';
+    document.getElementById('arRname').textContent=r.name||'未知';
+    document.getElementById('arRlatin').textContent=r.latin||'';
+    const conf=typeof r.confidence==='number'?Math.round(r.confidence)+'%':(r.confidence||'—');
+    document.getElementById('arConf').textContent=conf;
+    const setBlock=(id,txtId,val)=>{
+      const bl=document.getElementById(id),tx=document.getElementById(txtId);
+      if(val&&val.trim()&&val.trim()!=='—'){tx.textContent=val;bl.style.display='block';}
+      else bl.style.display='none';
+    };
+    setBlock('arNatureBlock','arRnature',r.nature||'');
+    setBlock('arEffectBlock','arReffect',r.effect||'');
+    setBlock('arNotesBlock','arRnotes',r.notes||'');
+    arLastKnownId=(r.known_id&&HERBS.find(h=>h.id===r.known_id))?r.known_id:null;
+    document.getElementById('arMoreBtn').style.display=arLastKnownId?'inline-block':'none';
+    result.style.display='flex';result.scrollTop=0;
     earnPoints(3,'AR识药');
-    result.onclick=()=>showHerb(pick.id);
-  },2200);
+  }catch(e){
+    cam.classList.remove('scanning');
+    btn.disabled=false;btn.textContent='再次识别';
+    hint.textContent='网络异常，请稍后重试';
+  }
 }
+function openARDetail(){if(arLastKnownId){stopAR();showHerb(arLastKnownId);}}
 
 // ============ 礼盒定制 ============
 const GIFT_BOXES=[
@@ -2547,9 +2617,11 @@ function toggleGiftProd(id){
 }
 function updateDiyTotal(){
   const box=GIFT_BOXES.find(b=>b.id===diyState.box);
-  let total=box.p;
-  diyState.picks.forEach(id=>{const p=P[id];if(p)total+=p.price;});
-  document.getElementById('diyTotal').textContent=total;
+  // 用分为单位累加，规避浮点误差
+  let cents=Math.round(box.p*100);
+  diyState.picks.forEach(id=>{const p=P[id];if(p)cents+=Math.round(p.price*100);});
+  const total=cents/100;
+  document.getElementById('diyTotal').textContent=Number.isInteger(total)?total:total.toFixed(2);
   document.getElementById('diyCount').textContent=diyState.picks.size;
   document.getElementById('diyMax').textContent=box.cap;
 }
@@ -2689,6 +2761,8 @@ function getTLIcon(title){
 
 // ===== NAV =====
 function showTab(tab){
+  const arActive=document.getElementById('page-ar')?.classList.contains('active');
+  if(arActive&&typeof stopAR==='function')stopAR();
   navHistory=[];
   document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='';});
   document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
@@ -2700,6 +2774,8 @@ function showTab(tab){
 }
 
 function showPage(pid){
+  const arActive=document.getElementById('page-ar')?.classList.contains('active');
+  if(arActive&&pid!=='page-ar'&&typeof stopAR==='function')stopAR();
   navHistory.push(currentTab);
   document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='';});
   document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
