@@ -1,0 +1,22 @@
+<view class="tab-shell">
+  <view class="sec-title title-cn">本草商城</view>
+  <view class="sec-sub">道地药材 · 节气礼盒 · 养生茶方</view>
+
+  <view class="cats">
+    <view class="cat-chip" bindtap="openFull" data-cat="all">全部</view>
+    <view class="cat-chip" bindtap="openFull" data-cat="herb">单味药材</view>
+    <view class="cat-chip" bindtap="openFull" data-cat="tea">养生茶</view>
+    <view class="cat-chip" bindtap="openFull" data-cat="gift">节气礼盒</view>
+    <view class="cat-chip" bindtap="openFull" data-cat="paste">膏方滋补</view>
+  </view>
+
+  <view class="promo">
+    <view class="promo-l">限时满减 · 立省 ¥30</view>
+    <view class="promo-r" bindtap="openFull" data-cat="all">立即选购 →</view>
+  </view>
+
+  <view class="cta-card" bindtap="openFull" data-cat="all">
+    <view class="cta-title">进入完整商城</view>
+    <view class="cta-desc">18 款道地精品 · 搜索 / 排序 / 购物车</view>
+  </view>
+</view>

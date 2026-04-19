@@ -1,0 +1,46 @@
+<view class="tab-shell">
+  <view class="hero">
+    <view class="hero-kicker">道地本草 · 云端溯源</view>
+    <view class="title-cn hero-title">云上祁州</view>
+    <view class="hero-sub">千年药都 · 一键追源</view>
+    <view class="hero-actions">
+      <view class="btn-primary" bindtap="openFull" data-tab="home">进入首页 →</view>
+      <view class="btn-outline" bindtap="scan">扫码溯源</view>
+    </view>
+  </view>
+
+  <view class="grid">
+    <view class="cell" bindtap="openFull" data-tab="shop">
+      <view class="cell-title">本草商城</view>
+      <view class="cell-desc">道地药材 · 节气礼盒</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="expert">
+      <view class="cell-title">名医问诊</view>
+      <view class="cell-desc">AI 助手 · 专家一对一</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="atlas">
+      <view class="cell-title">本草图谱</view>
+      <view class="cell-desc">八味主药 · 功效速查</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="map">
+      <view class="cell-title">产地地图</view>
+      <view class="cell-desc">华北八大道地产区</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="study">
+      <view class="cell-title">本草研学</view>
+      <view class="cell-desc">4 条研学线路</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="ar">
+      <view class="cell-title">AR 识草</view>
+      <view class="cell-desc">镜头一照 · 即刻识药</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="gift">
+      <view class="cell-title">节气礼盒 DIY</view>
+      <view class="cell-desc">自选搭配 · 随心定制</view>
+    </view>
+    <view class="cell" bindtap="openFull" data-tab="points">
+      <view class="cell-title">我的积分</view>
+      <view class="cell-desc">养生家成长路</view>
+    </view>
+  </view>
+</view>

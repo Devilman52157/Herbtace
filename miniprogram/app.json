@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/shop/shop",
+    "pages/expert/expert",
+    "pages/my/my"
+  ],
+  "window": {
+    "navigationBarTitleText": "云上祁州",
+    "navigationBarBackgroundColor": "#F8F2E8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8F2E8",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#8B6F47",
+    "selectedColor": "#B5452A",
+    "backgroundColor": "#FFFBF2",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "商城",
+        "iconPath": "images/tab-shop.png",
+        "selectedIconPath": "images/tab-shop-active.png"
+      },
+      {
+        "pagePath": "pages/expert/expert",
+        "text": "问诊",
+        "iconPath": "images/tab-expert.png",
+        "selectedIconPath": "images/tab-expert-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/tab-my.png",
+        "selectedIconPath": "images/tab-my-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于显示药材产地分布"
+    },
+    "scope.camera": {
+      "desc": "用于扫码溯源和舌诊面诊"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseImage",
+    "chooseMedia"
+  ]
+}

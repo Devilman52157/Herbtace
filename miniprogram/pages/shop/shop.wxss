@@ -1,0 +1,35 @@
+.tab-shell { min-height: 100vh; padding: 40rpx 32rpx 80rpx; background: var(--paper); }
+.sec-title { font-size: 56rpx; color: var(--vermilion); text-align: center; margin-bottom: 8rpx; }
+.sec-sub { font-size: 24rpx; color: var(--ink-3); text-align: center; margin-bottom: 40rpx; letter-spacing: 4rpx; }
+
+.cats { display: flex; flex-wrap: wrap; gap: 16rpx; margin-bottom: 32rpx; }
+.cat-chip {
+  background: var(--paper-2);
+  border: 2rpx solid var(--border);
+  border-radius: 999rpx;
+  padding: 12rpx 32rpx;
+  font-size: 26rpx;
+  color: var(--ink-2);
+}
+
+.promo {
+  background: linear-gradient(90deg, var(--vermilion) 0%, var(--vermilion-2) 100%);
+  color: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx 32rpx;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+.promo-l { font-size: 28rpx; }
+.promo-r { font-size: 26rpx; opacity: 0.9; }
+
+.cta-card {
+  background: var(--paper-2);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 48rpx 32rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx var(--shadow);
+}
+.cta-title { font-size: 36rpx; color: var(--vermilion); font-weight: 600; margin-bottom: 12rpx; }
+.cta-desc { font-size: 26rpx; color: var(--ink-3); }

@@ -1,0 +1,9 @@
+<!-- pages/index/index.wxml — web-view wrapper for 1:1 HTML rendering -->
+<view wx:if="{{!url}}" class="fallback">
+  <view class="fallback-card">
+    <view class="title-cn fallback-title">云上祁州</view>
+    <view class="fallback-desc">请在 app.js 的 globalData.webviewUrl 中配置 HTTPS 地址，并在微信公众平台将该域名加入业务域名白名单。</view>
+    <navigator class="fallback-link" url="/pages/home/home" open-type="switchTab">前往原生首页 →</navigator>
+  </view>
+</view>
+<web-view wx:else src="{{url}}" bindmessage="onMessage" bindload="onLoad" binderror="onError"></web-view>
