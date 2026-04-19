@@ -1,0 +1,27 @@
+.tab-shell { min-height: 100vh; padding: 40rpx 32rpx 80rpx; background: var(--paper); }
+
+.hero {
+  background: linear-gradient(135deg, var(--paper-2) 0%, var(--paper-3) 100%);
+  border: 2rpx solid var(--border);
+  border-radius: 24rpx;
+  padding: 56rpx 40rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 32rpx var(--shadow);
+  margin-bottom: 40rpx;
+}
+.hero-kicker { font-size: 24rpx; color: var(--gold-2); letter-spacing: 8rpx; margin-bottom: 16rpx; }
+.hero-title { font-size: 80rpx; color: var(--vermilion); margin-bottom: 16rpx; }
+.hero-sub { font-size: 28rpx; color: var(--ink-2); margin-bottom: 40rpx; }
+.hero-actions { display: flex; gap: 24rpx; justify-content: center; }
+.hero-actions .btn-primary, .hero-actions .btn-outline { padding: 18rpx 36rpx; font-size: 28rpx; }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24rpx; }
+.cell {
+  background: var(--paper-2);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 32rpx 24rpx;
+  box-shadow: 0 4rpx 12rpx var(--shadow);
+}
+.cell-title { font-size: 32rpx; color: var(--vermilion); font-weight: 600; margin-bottom: 8rpx; }
+.cell-desc { font-size: 24rpx; color: var(--ink-3); }

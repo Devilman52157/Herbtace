@@ -1,0 +1,78 @@
+/* app.wxss — global styles & CSS variables
+   Colors match the original bencao-suoyuan-v2.html palette exactly. */
+
+page {
+  --ink: #2A1F14;
+  --ink-2: #4A3728;
+  --ink-3: #6B5544;
+  --vermilion: #B5452A;
+  --vermilion-2: #8B2F1C;
+  --gold: #C4935A;
+  --gold-2: #A87845;
+  --jade: #4A7C59;
+  --jade-2: #2F5A3D;
+  --paper: #F8F2E8;
+  --paper-2: #FFFBF2;
+  --paper-3: #EDE3D0;
+  --border: #D4C4A8;
+  --shadow: rgba(42, 31, 20, 0.12);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+view, text, button, input, textarea, scroll-view, image {
+  box-sizing: border-box;
+}
+
+button::after { border: none; }
+
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+.card {
+  background: var(--paper-2);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 16rpx var(--shadow);
+}
+
+.btn-primary {
+  background: var(--vermilion);
+  color: #fff;
+  border-radius: 999rpx;
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--vermilion);
+  border: 2rpx solid var(--vermilion);
+  border-radius: 999rpx;
+  padding: 18rpx 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.title-cn {
+  font-family: 'Ma Shan Zheng', 'KaiTi', 'STKaiti', serif;
+  color: var(--ink);
+}
+
+.text-vermilion { color: var(--vermilion); }
+.text-gold { color: var(--gold); }
+.text-jade { color: var(--jade); }
+.text-ink2 { color: var(--ink-2); }
+.text-ink3 { color: var(--ink-3); }
+
+.bg-paper { background: var(--paper); }
+.bg-paper2 { background: var(--paper-2); }
+.bg-paper3 { background: var(--paper-3); }

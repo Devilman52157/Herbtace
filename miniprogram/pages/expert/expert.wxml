@@ -1,0 +1,42 @@
+<view class="tab-shell">
+  <view class="sec-title title-cn">名医问诊</view>
+  <view class="sec-sub">AI 本草助手 · 三位国医专家</view>
+
+  <view class="exp-card" bindtap="openFull" data-kind="ai">
+    <view class="exp-avatar ai">AI</view>
+    <view class="exp-body">
+      <view class="exp-name">本草 AI 助手</view>
+      <view class="exp-desc">24h 在线 · 体质辨识 · 节气养生</view>
+    </view>
+    <view class="exp-go">→</view>
+  </view>
+
+  <view class="exp-card" bindtap="openFull" data-kind="e1">
+    <view class="exp-avatar">李</view>
+    <view class="exp-body">
+      <view class="exp-name">李国医 · 主任医师</view>
+      <view class="exp-desc">40 年内科临床 · 脾胃调理</view>
+    </view>
+    <view class="exp-go">→</view>
+  </view>
+
+  <view class="exp-card" bindtap="openFull" data-kind="e2">
+    <view class="exp-avatar">王</view>
+    <view class="exp-body">
+      <view class="exp-name">王教授 · 博士生导师</view>
+      <view class="exp-desc">中医妇科 · 月子调养</view>
+    </view>
+    <view class="exp-go">→</view>
+  </view>
+
+  <view class="exp-card" bindtap="openFull" data-kind="e3">
+    <view class="exp-avatar">张</view>
+    <view class="exp-body">
+      <view class="exp-name">张医师 · 副主任</view>
+      <view class="exp-desc">针灸推拿 · 经络养生</view>
+    </view>
+    <view class="exp-go">→</view>
+  </view>
+
+  <view class="quick" bindtap="openFull" data-kind="tongue">舌诊 · 面诊 · AI 体质报告 →</view>
+</view>

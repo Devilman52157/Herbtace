@@ -1,0 +1,38 @@
+.tab-shell { min-height: 100vh; padding: 40rpx 32rpx 80rpx; background: var(--paper); }
+.sec-title { font-size: 56rpx; color: var(--vermilion); text-align: center; margin-bottom: 8rpx; }
+.sec-sub { font-size: 24rpx; color: var(--ink-3); text-align: center; margin-bottom: 40rpx; letter-spacing: 4rpx; }
+
+.exp-card {
+  background: var(--paper-2);
+  border: 2rpx solid var(--border);
+  border-radius: 16rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  box-shadow: 0 4rpx 12rpx var(--shadow);
+}
+.exp-avatar {
+  width: 96rpx; height: 96rpx; border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  font-size: 36rpx;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.exp-avatar.ai { background: var(--jade); font-size: 28rpx; font-weight: 600; }
+.exp-body { flex: 1; }
+.exp-name { font-size: 30rpx; color: var(--ink); font-weight: 600; margin-bottom: 6rpx; }
+.exp-desc { font-size: 24rpx; color: var(--ink-3); }
+.exp-go { color: var(--vermilion); font-size: 36rpx; }
+
+.quick {
+  background: linear-gradient(90deg, var(--jade) 0%, var(--jade-2) 100%);
+  color: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  text-align: center;
+  font-size: 28rpx;
+  margin-top: 24rpx;
+}
