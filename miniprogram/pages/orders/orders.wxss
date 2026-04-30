@@ -1,0 +1,52 @@
+/* ============ 订单 �?对齐 H5 ?============ */
+.orders-page { background: #F8F2E8; min-height: 100vh; padding: 24rpx 0 40rpx; }
+
+/* 复用商城 pill tabs 样式 */
+.shop-tabs { padding: 12rpx 40rpx 0; white-space: nowrap; }
+.shop-tab {
+  display: inline-flex; flex-shrink: 0; padding: 12rpx 28rpx; margin-right: 16rpx;
+  font-size: calc(24rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 2rpx;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 999rpx;
+}
+.shop-tab.active {
+  background: #4A7C59; color: #FFF; border-color: #4A7C59; font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(74,124,89,0.22);
+}
+
+.order-card {
+  margin: 20rpx 40rpx 0;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  padding: 24rpx;
+}
+.order-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 20rpx; margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #E8D5B5;
+}
+.order-no { font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 1rpx; }
+.order-status { font-size: calc(22rpx * var(--fs-scale, 1)); color: #B5452A; letter-spacing: 2rpx; font-weight: 700; }
+
+.order-items { display: flex; flex-direction: column; gap: 16rpx; }
+.order-itm { display: flex; align-items: center; gap: 20rpx; }
+.order-itm-thumb {
+  width: 80rpx; height: 80rpx; flex-shrink: 0;
+  background: #EDE4D4; border-radius: 8rpx;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.order-itm-img { width: 100%; height: 100%; display: block; }
+.order-itm-body { flex: 1; min-width: 0; }
+.order-itm-name { font-size: calc(24rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; }
+.order-itm-qty  { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-top: 4rpx; }
+.order-itm-price { font-size: calc(24rpx * var(--fs-scale, 1)); font-weight: 700; color: #B5452A; white-space: nowrap; }
+
+.order-foot {
+  margin-top: 20rpx; padding-top: 20rpx;
+  border-top: 2rpx solid #E8D5B5;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.order-date { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; }
+.order-total { font-size: calc(24rpx * var(--fs-scale, 1)); color: #2A1F14; letter-spacing: 1rpx; }
+.ot-amt { color: #B5452A; font-size: calc(32rpx * var(--fs-scale, 1)); font-weight: 900; margin-left: 8rpx; }
+
+.page-bottom { height: 40rpx; }

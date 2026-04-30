@@ -1,0 +1,225 @@
+/* ============ 详情 �?对齐 H5 ?============ */
+.detail-page { padding-bottom: 180rpx; background: #F8F2E8; min-height: 100vh; }
+
+/* 大图 */
+.detail-img {
+  position: relative;
+  height: 520rpx; background: #EDE4D4;
+  border-bottom: 2rpx solid #E8D5B5;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.detail-product-img { width: 100%; height: 100%; display: block; }
+.detail-fav {
+  position: absolute; top: 28rpx; right: 28rpx;
+  width: 72rpx; height: 72rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+.detail-fav.on { background: #FBE9DF; }
+
+/* 内容 */
+.detail-body { padding: 40rpx; background: #F8F2E8; }
+.detail-name {
+  font-family: "Ma Shan Zheng","STKaiti","KaiTi",serif;
+  font-size: calc(48rpx * var(--fs-scale, 1)); color: #2A1F14; letter-spacing: 4rpx; margin-bottom: 8rpx;
+}
+.detail-sub { font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-bottom: 24rpx; letter-spacing: 1rpx; }
+.detail-price {
+  font-size: calc(56rpx * var(--fs-scale, 1)); font-weight: 900; color: #B5452A;
+  line-height: 1.2; margin-bottom: 24rpx;
+}
+.dp-unit { font-size: calc(24rpx * var(--fs-scale, 1)); font-weight: 400; color: #8B7A6B; margin-left: 8rpx; }
+
+.detail-tags { display: flex; flex-wrap: wrap; gap: 10rpx; margin-bottom: 20rpx; }
+
+.detail-sec {
+  font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; letter-spacing: 2rpx;
+  margin: 32rpx 0 16rpx; padding-bottom: 12rpx;
+  border-bottom: 2rpx solid #E8D5B5;
+}
+.detail-text {
+  font-size: calc(24rpx * var(--fs-scale, 1)); color: #5C4A3A; line-height: 1.9; letter-spacing: 1rpx;
+}
+
+.trace-entry {
+  margin-top: 32rpx; padding: 28rpx;
+  background: rgba(74,124,89,0.08); border: 2rpx dashed rgba(74,124,89,0.3);
+  border-radius: 12rpx;
+  display: flex; align-items: center; justify-content: center; gap: 12rpx;
+  color: #4A7C59; font-size: calc(26rpx * var(--fs-scale, 1)); letter-spacing: 2rpx;
+}
+
+.review-sec {
+  margin-top: 36rpx;
+  padding: 28rpx;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 12rpx;
+}
+.review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding-bottom: 22rpx;
+  border-bottom: 2rpx solid rgba(196,147,90,0.16);
+}
+.review-title {
+  font-size: calc(30rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  color: #2A1F14;
+  letter-spacing: 2rpx;
+}
+.review-sub {
+  margin-top: 4rpx;
+  font-size: calc(20rpx * var(--fs-scale, 1));
+  color: #8B7A6B;
+}
+.review-score { text-align: right; }
+.review-score-num {
+  color: #B5452A;
+  font-size: calc(42rpx * var(--fs-scale, 1));
+  font-weight: 900;
+  line-height: 1;
+}
+.review-stars,
+.review-item-stars { margin-top: 6rpx; font-size: calc(22rpx * var(--fs-scale, 1)); letter-spacing: 1rpx; }
+.star-on { color: #C4935A; }
+.star-off { color: #D8CCBC; }
+
+.review-form {
+  margin-top: 24rpx;
+  padding: 22rpx;
+  background: #F8F2E8;
+  border-radius: 10rpx;
+}
+.review-form-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.review-form-title {
+  color: #2A1F14;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 1rpx;
+}
+.review-rate { display: flex; align-items: center; gap: 8rpx; }
+.review-rate-star {
+  color: #D8CCBC;
+  font-size: calc(34rpx * var(--fs-scale, 1));
+  line-height: 1;
+}
+.review-rate-star.on { color: #C4935A; }
+.review-input {
+  width: 100%;
+  min-height: 132rpx;
+  padding: 18rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 10rpx;
+  color: #2A1F14;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+.review-input-ph { color: #B5A692; }
+.review-submit {
+  margin: 18rpx 0 0;
+  padding: 0;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-radius: 8rpx;
+  background: #B5452A;
+  color: #FFF;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  letter-spacing: 2rpx;
+}
+.review-submit.disabled {
+  background: #D8CCBC;
+  color: #FFFFFF;
+}
+
+.review-list {
+  margin-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+}
+.review-item {
+  display: flex;
+  gap: 18rpx;
+}
+.review-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  flex: 0 0 64rpx;
+  border-radius: 50%;
+  background: #FBE8E4;
+  color: #B5452A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(26rpx * var(--fs-scale, 1));
+  font-weight: 700;
+}
+.review-body { flex: 1; min-width: 0; }
+.review-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+.review-name {
+  color: #2A1F14;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+}
+.review-date {
+  color: #8B7A6B;
+  font-size: calc(20rpx * var(--fs-scale, 1));
+  white-space: nowrap;
+}
+.review-content {
+  margin-top: 8rpx;
+  color: #5C4A3A;
+  font-size: calc(23rpx * var(--fs-scale, 1));
+  line-height: 1.7;
+  letter-spacing: 1rpx;
+}
+
+/* 底部 buy-bar */
+.buy-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: rgba(255,252,245,0.96);
+  border-top: 2rpx solid #E8D5B5;
+  display: flex; align-items: center; gap: 20rpx;
+}
+.bb-icon {
+  position: relative;
+  width: 72rpx; height: 72rpx;
+  display: flex; align-items: center; justify-content: center;
+}
+.bb-badge {
+  position: absolute; top: -4rpx; right: -4rpx;
+  min-width: 32rpx; height: 32rpx; padding: 0 8rpx;
+  background: #B5452A; color: #FFF;
+  font-size: calc(18rpx * var(--fs-scale, 1)); line-height: 32rpx; border-radius: 16rpx; text-align: center;
+}
+.btn-cart, .btn-buy {
+  padding: 0; margin: 0; height: 80rpx; line-height: 80rpx;
+  border-radius: 8rpx; font-size: calc(26rpx * var(--fs-scale, 1)); letter-spacing: 2rpx; font-weight: 700;
+}
+.btn-cart {
+  flex: 1; background: none; color: #B5452A;
+  border: 3rpx solid #B5452A;
+}
+.btn-buy {
+  flex: 2; background: #B5452A; color: #E8D5B5;
+  box-shadow: 0 6rpx 24rpx rgba(181,69,42,0.3);
+  letter-spacing: 4rpx;
+}

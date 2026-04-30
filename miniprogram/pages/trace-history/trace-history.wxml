@@ -1,0 +1,25 @@
+<view class="{{appFontClass}} thist-page">
+  <block wx:if="{{list.length===0}}">
+    <view class="empty-state">
+      <view class="empty-state-ic"><icon name="chain" size="96rpx" color="#C4935A"/></view>
+      <view class="empty-state-t">暂无溯源记录</view>
+      <view class="empty-state-s">去首页扫丢扫，追溯药材来路</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="thist-list">
+      <view class="thist-card" wx:for="{{list}}" wx:key="t"
+            data-id="{{item.p.id}}" bindtap="go">
+        <view class="thist-ic"><icon name="chain" size="36rpx" color="#E8D5B5"/></view>
+        <view class="thist-body">
+          <view class="thist-n">{{item.p.name}}</view>
+          <view class="thist-batch">批次 · {{item.p.batch}}</view>
+        </view>
+        <view class="thist-time">{{item.t}}</view>
+      </view>
+    </view>
+  </block>
+  <view class="page-bottom"></view>
+</view>
+

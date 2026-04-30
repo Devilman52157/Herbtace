@@ -1,0 +1,30 @@
+<view class="{{appFontClass}} vr-page">
+  <view class="vr-viewer">
+    <canvas id="vrCanvas" canvas-id="vrCanvas" type="webgl" class="vr-canvas"
+            bindtouchstart="onTouchStart"
+            bindtouchmove="onTouchMove"
+            bindtouchend="onTouchEnd"
+            bindtouchcancel="onTouchEnd"></canvas>
+
+    <cover-view class="vr-empty" wx:if="{{!photoOk}}">
+      <cover-view class="vr-state-icon">!</cover-view>
+      <cover-view>实景加载失败</cover-view>
+    </cover-view>
+
+    <cover-view class="vr-loading" wx:if="{{canvasLoading && photoOk}}">
+      <cover-view class="loading-ring"></cover-view>
+      <cover-view>实景加载中</cover-view>
+    </cover-view>
+
+    <cover-view class="scene-tabs">
+      <cover-view class="scene-tab {{scene.id===item.id?'active':''}}"
+            wx:for="{{scenes}}"
+            wx:key="id"
+            data-id="{{item.id}}"
+            bindtap="switchScene">
+        <cover-view class="scene-dot"></cover-view>
+        <cover-view class="scene-name">{{item.name}}</cover-view>
+      </cover-view>
+    </cover-view>
+  </view>
+</view>

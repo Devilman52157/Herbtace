@@ -1,0 +1,124 @@
+/* ============ 积分 �?对齐 H5 ?============ */
+.page-points { background: #F8F2E8; min-height: 100vh; padding-bottom: 40rpx; }
+.btn-hover { opacity: 0.92; transform: scale(0.97); }
+.card-hover { opacity: 0.92; transform: scale(0.98); }
+
+.points-hero {
+  padding: 56rpx 40rpx 48rpx; text-align: center;
+  color: #E8D5B5;
+  background: linear-gradient(135deg, #8B6914, #B08930);
+  position: relative; overflow: hidden;
+}
+.points-hero::before {
+  content: ''; position: absolute; top: -80rpx; right: -80rpx;
+  width: 300rpx; height: 300rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.points-level {
+  display: inline-block; position: relative; z-index: 1;
+  padding: 6rpx 24rpx; background: rgba(255,255,255,0.2);
+  border-radius: 4rpx; font-size: calc(22rpx * var(--fs-scale, 1)); letter-spacing: 4rpx;
+  margin-bottom: 20rpx;
+}
+.points-num {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(96rpx * var(--fs-scale, 1)); color: #FFF; letter-spacing: 6rpx; line-height: 1;
+  position: relative; z-index: 1;
+}
+.points-lbl {
+  font-size: calc(22rpx * var(--fs-scale, 1)); opacity: 0.8; letter-spacing: 4rpx;
+  margin-top: 8rpx; position: relative; z-index: 1;
+}
+.points-bar {
+  margin-top: 28rpx; height: 10rpx;
+  background: rgba(255,255,255,0.2); border-radius: 5rpx;
+  overflow: hidden; position: relative; z-index: 1;
+}
+.points-bar-inner {
+  height: 100%; background: #E8D5B5; border-radius: 5rpx;
+  transition: width 0.4s ease;
+}
+.points-bar-hint {
+  margin-top: 10rpx; font-size: calc(18rpx * var(--fs-scale, 1));
+  opacity: 0.8; letter-spacing: 2rpx;
+  position: relative; z-index: 1;
+}
+.points-sign {
+  display: inline-flex; align-items: center; gap: 10rpx;
+  margin-top: 28rpx; padding: 14rpx 36rpx;
+  background: #FFFCF5; color: #B08930;
+  border-radius: 999rpx; font-size: calc(24rpx * var(--fs-scale, 1)); font-weight: 700;
+  letter-spacing: 2rpx;
+  position: relative; z-index: 1;
+}
+.points-sign.signed {
+  color: #4A7C59;
+  background: #F7FBF4;
+}
+
+/* 分割 */
+.divider {
+  margin: 32rpx 40rpx 20rpx;
+  display: flex; align-items: center; gap: 16rpx;
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 4rpx;
+}
+.divider::before,
+.divider::after { content: ''; flex: 1; height: 2rpx; background: #E8D5B5; }
+
+/* 赚取积分 */
+.earn-list { padding: 0 40rpx; display: flex; flex-direction: column; gap: 16rpx; }
+.earn-item {
+  display: flex; align-items: center; gap: 20rpx;
+  padding: 24rpx;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+}
+.earn-item.done {
+  border-color: rgba(74,124,89,0.35);
+  background: #FDFEF9;
+}
+.earn-ic {
+  width: 72rpx; height: 72rpx; flex-shrink: 0;
+  background: rgba(176,137,48,0.1); color: #B08930;
+  border-radius: 12rpx;
+  display: flex; align-items: center; justify-content: center;
+}
+.earn-item.done .earn-ic {
+  background: rgba(74,124,89,0.12);
+}
+.earn-txt { flex: 1; min-width: 0; }
+.earn-t { font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; letter-spacing: 1rpx; }
+.earn-s { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-top: 4rpx; letter-spacing: 1rpx; }
+.earn-pts {
+  font-size: calc(28rpx * var(--fs-scale, 1)); font-weight: 700; color: #B5452A; flex-shrink: 0;
+}
+.earn-item.done .earn-pts {
+  font-size: calc(22rpx * var(--fs-scale, 1));
+  color: #4A7C59;
+}
+
+/* 兑换 */
+.reward-list {
+  padding: 0 40rpx 20rpx;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx;
+}
+.reward-card {
+  padding: 28rpx 20rpx;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  text-align: center; position: relative;
+}
+.reward-card.locked { opacity: 0.55; }
+.reward-ic {
+  width: 96rpx; height: 96rpx;
+  margin: 0 auto 16rpx;
+  color: #B5452A; background: rgba(181,69,42,0.08);
+  border-radius: 16rpx;
+  display: flex; align-items: center; justify-content: center;
+}
+.reward-n { font-size: calc(24rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; letter-spacing: 1rpx; margin-bottom: 6rpx; }
+.reward-stock { font-size: calc(18rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-bottom: 10rpx; }
+.reward-cost {
+  display: inline-block;
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #B5452A; letter-spacing: 1rpx;
+}
+.reward-cost-num { font-weight: 900; font-size: calc(26rpx * var(--fs-scale, 1)); }
+.page-bottom { height: 40rpx; }

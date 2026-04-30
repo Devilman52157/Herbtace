@@ -1,0 +1,30 @@
+<view class="{{appFontClass}} story-page">
+  <view class="story-hero">
+    <view class="story-glow"></view>
+    <image class="story-logo" src="/assets/brand/logo-cloud-light.png" mode="aspectFit"/>
+    <view class="story-kicker">云上祁州</view>
+    <view class="story-title">把好药材讲清楚</view>
+    <view class="story-sub">从药都安国出发，让每一味本草都有来处、有标准、有温度。</view>
+  </view>
+
+  <view class="story-values">
+    <view class="story-value" wx:for="{{values}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="story-list">
+    <view class="story-card" wx:for="{{chapters}}" wx:key="title">
+      <view class="story-card-ic">
+        <icon name="{{item.icon}}" size="42rpx" color="#B5452A"/>
+      </view>
+      <view class="story-card-body">
+        <view class="story-card-title">{{item.title}}</view>
+        <view class="story-card-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="story-note">
+    <view class="story-note-title">本草溯源，不止是查来源</view>
+    <view class="story-note-text">它也是把产地、工艺、检测和节气养生放回同一条线里，让用户买得明白，也用得安心。</view>
+  </view>
+</view>

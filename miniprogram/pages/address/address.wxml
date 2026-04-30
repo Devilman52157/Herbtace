@@ -1,0 +1,49 @@
+<view class="{{appFontClass}} addr-page">
+  <block wx:if="{{list.length===0}}">
+    <view class="empty-state">
+      <view class="empty-state-ic"><icon name="pin" size="96rpx" color="#C4935A"/></view>
+      <view class="empty-state-t">还没有收货地坢</view>
+      <view class="empty-state-s">添加丢个地坢，让药香准时送达</view>
+    </view>
+  </block>
+
+  <view class="addr-list">
+    <view class="addr-card" wx:for="{{list}}" wx:key="id">
+      <view class="addr-head">
+        <text class="addr-name">{{item.name}}</text>
+        <text class="addr-phone">{{item.phone}}</text>
+      </view>
+      <view class="addr-detail">{{item.detail}}</view>
+      <view class="addr-del" data-id="{{item.id}}" bindtap="remove">
+        <icon name="close" size="28rpx" color="#8B7A6B"/>
+      </view>
+    </view>
+  </view>
+
+  <view class="addr-add" bindtap="openAdd">
+    <icon name="plus" size="28rpx" color="#B5452A"/>
+    <text>新增地址</text>
+  </view>
+
+  <view class="mask" wx:if="{{editing}}" bindtap="close"></view>
+  <view class="sheet" wx:if="{{editing}}" catchtap="noop">
+    <view class="sh-head">
+      <text>新增收货地址</text>
+      <view bindtap="close"><icon name="close" size="32rpx" color="#2A1F14"/></view>
+    </view>
+    <view class="fm-row">
+      <text class="fm-k">姓名</text>
+      <input class="fm-in" placeholder-class="fm-in-ph" value="{{form.name}}" placeholder="收件人姓名" bindinput="onName"/>
+    </view>
+    <view class="fm-row">
+      <text class="fm-k">电话</text>
+      <input class="fm-in" placeholder-class="fm-in-ph" type="number" value="{{form.phone}}" placeholder="手机号码" bindinput="onPhone"/>
+    </view>
+    <view class="fm-row">
+      <text class="fm-k">地址</text>
+      <input class="fm-in" placeholder-class="fm-in-ph" value="{{form.detail}}" placeholder="省市区及详细地址" bindinput="onDetail"/>
+    </view>
+    <view class="fm-save" bindtap="save">保存地址</view>
+  </view>
+</view>
+

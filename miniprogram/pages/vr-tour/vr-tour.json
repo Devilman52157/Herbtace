@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "VR 实景",
+  "disableScroll": true,
+  "backgroundColor": "#1E1711",
+  "usingComponents": {
+    "icon": "/components/icon/icon"
+  }
+}

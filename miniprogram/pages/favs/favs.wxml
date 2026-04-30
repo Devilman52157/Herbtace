@@ -1,0 +1,32 @@
+<view class="{{appFontClass}} favs-page">
+
+  <block wx:if="{{list.length===0}}">
+    <view class="empty-state">
+      <view class="empty-state-ic"><icon name="star" size="96rpx" color="#C4935A"/></view>
+      <view class="empty-state-t">还没有收藏的商品</view>
+      <view class="empty-state-s">把喜欢的药材收藏起来，随时查看</view>
+      <view class="empty-cta" bindtap="goShop">去商城</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="fav-grid">
+      <view class="fav-card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="go">
+        <view class="fav-thumb">
+          <image wx:if="{{item.image}}" class="fav-img" src="{{item.image}}" mode="aspectFill"/>
+          <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="80rpx" color="#4A7C59"/>
+          <view class="fav-unfav" catchtap="remove" data-id="{{item.id}}">
+            <icon name="star" size="28rpx" color="#B5452A"/>
+          </view>
+        </view>
+        <view class="fav-body">
+          <view class="fav-name">{{item.name}}</view>
+          <view class="fav-price">¥{{item.price}}<text class="fav-unit"> / {{item.unit}}</text></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view class="page-bottom"></view>
+</view>
+

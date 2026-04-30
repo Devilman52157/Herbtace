@@ -1,0 +1,99 @@
+<view class="{{appFontClass}} shop-page">
+
+  <!-- 搜索 -->
+  <view class="shop-search">
+    <icon name="search" size="30rpx" color="#8B7A6B"/>
+    <input class="ss-input" placeholder="搜索商品名 / 产地 / 功效" placeholder-class="ss-input-placeholder"
+           value="{{keyword}}" bindinput="onSearchInput" confirm-type="search"/>
+    <view wx:if="{{keyword}}" class="ss-clear" bindtap="clearSearch">
+      <icon name="close" size="22rpx" color="#8B7A6B"/>
+    </view>
+  </view>
+
+  <!-- 限时促销 Banner -->
+  <view class="promo-banner" bindtap="applyPromo" hover-class="hover-dim">
+    <view class="promo-left">
+      <text class="promo-tag">限时 · {{promo.tagJq}}</text>
+      <view class="promo-title">{{promo.title}}</view>
+      <view class="promo-sub">{{promo.sub}}</view>
+    </view>
+    <view class="promo-right">
+      <view class="promo-count">
+        <text class="pn">{{promo.hh}}</text><text class="pc">:</text>
+        <text class="pn">{{promo.mm}}</text><text class="pc">:</text>
+        <text class="pn">{{promo.ss}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类 pill tabs -->
+  <scroll-view scroll-x class="shop-tabs" enhanced show-scrollbar="{{false}}">
+    <view class="shop-tab {{cat===item.id?'active':''}}" wx:for="{{tabs}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="switchCat">
+      {{item.name}}<text class="shop-tab-num">{{counts[item.id]}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 排序 -->
+  <view class="shop-sort">
+    <text class="shop-sort-lbl">排序</text>
+    <text class="sort-opt {{sort==='default'?'active':''}}"   data-s="default"   bindtap="switchSort">推荐</text>
+    <text class="sort-opt {{sort==='priceAsc'?'active':''}}"  data-s="priceAsc"  bindtap="switchSort">价格 ↑</text>
+    <text class="sort-opt {{sort==='priceDesc'?'active':''}}" data-s="priceDesc" bindtap="switchSort">价格 ↓</text>
+    <text class="sort-opt {{sort==='hot'?'active':''}}"       data-s="hot"       bindtap="switchSort">热销</text>
+    <text class="sort-opt {{sort==='new'?'active':''}}"       data-s="new"       bindtap="switchSort">最新</text>
+    <text class="shop-count">共 {{list.length}} 件</text>
+  </view>
+
+  <!-- 商品栅格 -->
+  <view class="shop-grid" wx:if="{{list.length}}">
+    <view class="shop-item" wx:for="{{list}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="goDetail" hover-class="hover-dim">
+      <view class="shop-item-img">
+        <view wx:if="{{item.promoTag}}" class="shop-promo-tag {{item.salePrice?'sale':''}}">{{item.promoTag}}</view>
+        <image wx:if="{{item.image}}" class="shop-product-img" src="{{item.image}}" mode="aspectFill"/>
+        <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="96rpx" color="#4A7C59"/>
+        <view class="shop-item-fav {{favs[item.id]?'on':''}}" catchtap="toggleFav" data-id="{{item.id}}">
+          <icon name="star" size="28rpx" color="{{favs[item.id]?'#B5452A':'#8B7A6B'}}"/>
+        </view>
+      </view>
+      <view class="shop-item-body">
+        <view class="shop-item-name">{{item.name}}</view>
+        <view class="shop-item-desc">{{item.origin}} · {{item.tags[0]}}</view>
+        <view class="shop-item-meta">
+          <text class="shop-rating">★ {{item.rating}}</text>
+          <text class="shop-meta-divider">·</text>
+          <text class="shop-sold">已售 {{item.sold}}</text>
+          <view class="shop-promo-pill">满99-15</view>
+        </view>
+        <view class="shop-price-row">
+          <view class="shop-item-price {{item.salePrice?'sale':''}}">
+            <text class="si-yuan">¥</text>
+            <text class="si-int">{{item.priceInt}}</text>
+            <text wx:if="{{item.priceDec}}" class="si-dec">{{item.priceDec}}</text>
+            <text wx:if="{{item.unitText}}" class="si-unit">/{{item.unitText}}</text>
+          </view>
+          <text wx:if="{{item.salePrice}}" class="si-origin">¥{{item.price}}</text>
+        </view>
+        <view wx:if="{{item.discountText}}" class="shop-discount">{{item.discountText}} 限时</view>
+        <view class="shop-add-cart" catchtap="addCart" data-id="{{item.id}}" hover-class="hover-dim">
+          <icon name="cart" size="26rpx" color="#FFFFFF"/>
+          <text>加购</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状?-->
+  <view class="empty-state" wx:else>
+    <view class="empty-state-ic">
+      <icon name="search" size="96rpx" color="#C4935A"/>
+    </view>
+    <view class="empty-state-t">未找到相关商品</view>
+    <view class="empty-state-s">换个关键词或切换分类试试</view>
+    <view class="empty-cta" bindtap="resetAll">重置筛选</view>
+  </view>
+
+  <view class="page-bottom"></view>
+</view>
+

@@ -1,0 +1,74 @@
+<view class="{{appFontClass}} trace-page" wx:if="{{product}}">
+  <view class="trace-hero">
+    <view class="trace-inner">
+      <view class="tic">
+        <image wx:if="{{product.image}}" class="tic-img" src="{{product.image}}" mode="aspectFill"/>
+        <icon wx:else name="{{product.cat==='easy'?'tea':product.cat==='home'?'sprout':'gift'}}" size="80rpx" color="#E8D5B5"/>
+      </view>
+      <view class="tname">{{product.name}}</view>
+      <view class="tbatch">批次号 · {{product.batch}}</view>
+      <view class="bc">
+        <view class="bc-badge" bindtap="viewBCCert">
+          <icon name="shield" size="22rpx" color="#E8D5B5"/>
+          <text>区块链已存证</text>
+        </view>
+        <view class="bc-hash">上链哈希 · {{hash}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="vr-card" bindtap="onVR">
+    <view class="vrc-ic"><icon name="mountain" size="72rpx" color="#E8D5B5"/></view>
+    <view class="vrc-label">VR 实景 · 原产地全景</view>
+    <view class="vrc-hint">点击进入 360° 观览 · 支持拖动与陀螺仪</view>
+  </view>
+
+  <view class="info-card">
+    <view class="info-title">
+      <icon name="clipboard" size="30rpx" color="#B5452A"/>
+      <text>产品信息</text>
+    </view>
+    <view class="irow" wx:for="{{infoRows}}" wx:key="k">
+      <text class="ik">{{item.k}}</text>
+      <text class="iv {{item.cert?'cert':''}}">{{item.cert?'✓ ':''}}{{item.v}}</text>
+    </view>
+  </view>
+
+  <view class="divider"><text class="label">溯源时间线</text></view>
+  <view class="timeline">
+    <view class="tl-item {{item.done?'done':'pending'}}" wx:for="{{timeline}}" wx:key="title">
+      <view class="tl-dot {{item.done?'done':''}}"></view>
+      <view class="tl-date">{{item.date}}</view>
+      <view class="tl-title">{{item.title}}</view>
+      <view class="tl-desc">{{item.desc}}</view>
+
+      <!-- 棢测节点：区块链溯源证书入?-->
+      <view wx:if="{{item.isDetect}}" class="cert-wrap" bindtap="viewBCCert">
+        <view class="cert-thumb">
+          <view class="cert-lines"><view/><view/><view/><view/><view/></view>
+          <view class="cert-stamp">CERT</view>
+        </view>
+        <view class="cert-btn">
+          <view class="cert-t">
+            <icon name="shield" size="24rpx" color="#B5452A"/>
+            <text>查看区块链溯源证书</text>
+          </view>
+          <view class="cert-s">SGS 第三方检测报告 · 全项合格\n已上链存证 · 点击查看详情</view>
+        </view>
+        <view class="cert-arrow"></view>
+      </view>
+
+      <!-- 视频/报告链接（非棢测节?+ ?media?-->
+      <view wx:if="{{item.media && !item.isDetect}}" class="tl-media"
+            data-type="{{item.media}}" bindtap="viewMedia">
+        <icon name="{{item.media==='video'?'play':'doc'}}" size="22rpx" color="#B5452A"/>
+        <text>{{item.media==='video'?'播放现场视频':'查看检测报告'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom">
+    <button class="btn-ghost" bindtap="goDetail">查看商品 · 立即购买</button>
+  </view>
+</view>
+

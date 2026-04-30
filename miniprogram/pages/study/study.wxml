@@ -1,0 +1,40 @@
+<view class="{{appFontClass}} page-study">
+  <view class="st-hero">
+    <view class="st-tag">研学 · STUDY</view>
+    <view class="st-title">药都研学</view>
+    <view class="st-sub">访药 · 识药 · 制药 · 传承千年药王文化</view>
+  </view>
+
+  <view class="route-list">
+    <view class="route-card" wx:for="{{routes}}" wx:key="id">
+      <view class="rt-cover">
+        <view class="rt-cover-day">Day 01 · {{item.days}}</view>
+      </view>
+      <view class="rt-top">
+        <view class="rt-tag">{{item.tag}}</view>
+        <view class="rt-days">{{item.days}}</view>
+      </view>
+      <view class="rt-name">{{item.name}}</view>
+      <view class="rt-hi">{{item.hi}}</view>
+      <view class="rt-foot">
+        <view class="rt-cap">?{{item.cap}} </view>
+        <view class="rt-price">¥{{item.price}}<text class="u">/</text></view>
+        <view class="rt-btn" data-id="{{item.id}}" bindtap="book" hover-class="btn-hover">预约</view>
+      </view>
+    </view>
+  </view>
+  <view class="page-bottom"></view>
+
+  <view class="mask" wx:if="{{picking}}" bindtap="close"></view>
+  <view class="sheet" wx:if="{{picking}}" catchtap="noop">
+    <view class="sh-head">
+      <text>{{picking.name}}</text>
+      <view bindtap="close"><icon name="close" size="36rpx" color="#8B7A6B"/></view>
+    </view>
+    <view class="fm-row"><text class="fm-k">姓名</text><input class="fm-in" placeholder-class="fm-in-ph" placeholder="请输入姓名" value="{{name}}" bindinput="onName"/></view>
+    <view class="fm-row"><text class="fm-k">电话</text><input class="fm-in" placeholder-class="fm-in-ph" type="number" placeholder="手机号" value="{{phone}}" bindinput="onPhone"/></view>
+    <view class="fm-row"><text class="fm-k">出行日期</text><input class="fm-in" placeholder-class="fm-in-ph" placeholder="如 2026-05-01" value="{{date}}" bindinput="onDate"/></view>
+    <view class="fm-btn" bindtap="submit">提交预约</view>
+  </view>
+</view>
+

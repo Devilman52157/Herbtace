@@ -1,0 +1,51 @@
+<view class="{{appFontClass}} page-jq" wx:if="{{jq}}">
+  <view class="jieqi-hero">
+    <view wx:if="{{jq.isCurrent}}" class="jieqi-hero-tag">当令</view>
+    <view class="jieqi-hero-inner">
+      <view class="jieqi-hero-ic">
+        <icon name="{{jq.icon}}" size="80rpx" color="#E8D5B5"/>
+      </view>
+      <view class="jieqi-hero-name">{{jq.name}}</view>
+      <view class="jieqi-hero-date">{{jq.dateRange}}</view>
+      <view class="jieqi-hero-poem">{{jq.poem}}</view>
+    </view>
+  </view>
+
+  <view class="jieqi-intro">{{jq.intro}}</view>
+
+  <view wx:if="{{jq.tips && jq.tips.length}}" class="jq-info-card">
+    <view class="jq-info-title">
+      <icon name="clipboard" size="30rpx" color="#B5452A"/>
+      <text>养生要点</text>
+    </view>
+    <view class="jieqi-tip-item" wx:for="{{jq.tips}}" wx:key="*this">
+      <view class="jieqi-tip-dot"></view>
+      <text>{{item}}</text>
+    </view>
+  </view>
+
+  <view class="divider"><text class="label">当令好物</text></view>
+  <view class="jieqi-product-card" wx:for="{{recProducts}}" wx:key="id"
+        data-id="{{item.id}}" bindtap="goDetail">
+    <view class="jp-thumb">
+      <image wx:if="{{item.image}}" class="jp-img" src="{{item.image}}" mode="aspectFill"/>
+      <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="60rpx" color="#4A7C59"/>
+    </view>
+    <view class="jp-body">
+      <view>
+        <view class="jp-name">{{item.name}}</view>
+        <view class="jp-origin">
+          <icon name="pin" size="22rpx" color="#B5452A"/>
+          <text>{{item.origin || '安国'}}</text>
+        </view>
+      </view>
+      <view class="jp-bot">
+        <view class="jp-tag">{{item.displayTag}}</view>
+        <view class="jp-price">¥{{item.price}}<text><small>/{{item.unit}}</small></text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="jq-more" bindtap="goHome" hover-class="hover-dim">查看更多节气</view>
+  <view class="page-bottom"></view>
+</view>

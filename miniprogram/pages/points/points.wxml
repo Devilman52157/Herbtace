@@ -1,0 +1,41 @@
+<view class="{{appFontClass}} page-points">
+  <view class="points-hero">
+    <view class="points-level">本草学徒</view>
+    <view class="points-num">{{balance}}</view>
+    <view class="points-lbl">积少成多 · 尊享权益</view>
+    <view class="points-bar"><view class="points-bar-inner" style="width:{{barPct || 30}}%"></view></view>
+    <view class="points-bar-hint">再赚 {{nextLevelPts || 200}} 分升级下一等级</view>
+    <view class="points-sign {{signedToday ? 'signed' : ''}}" bindtap="signIn" hover-class="btn-hover">
+      <icon name="{{signedToday ? 'check' : 'calendar'}}" size="24rpx" color="{{signedToday ? '#4A7C59' : '#B08930'}}"/>
+      <text>{{signTip}}</text>
+    </view>
+  </view>
+
+  <view class="divider">赚取积分</view>
+  <view class="earn-list">
+    <view class="earn-item {{item.done ? 'done' : ''}}" wx:for="{{earnItems}}" wx:key="id">
+      <view class="earn-ic">
+        <icon name="{{item.icon}}" size="40rpx" color="{{item.done ? '#4A7C59' : '#B08930'}}"/>
+      </view>
+      <view class="earn-txt">
+        <view class="earn-t">{{item.title}}</view>
+        <view class="earn-s">{{item.desc}}</view>
+      </view>
+      <view class="earn-pts">{{item.pts}}</view>
+    </view>
+  </view>
+
+  <view class="divider">积分兑换</view>
+  <view class="reward-list">
+    <view class="reward-card {{item.locked?'locked':''}}"
+          wx:for="{{rewards}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="redeem" hover-class="card-hover">
+      <view class="reward-ic"><icon name="{{item.icon}}" size="52rpx" color="#B5452A"/></view>
+      <view class="reward-n">{{item.name}}</view>
+      <view class="reward-stock">{{item.stock}}</view>
+      <view class="reward-cost"><text class="reward-cost-num">{{item.cost}}</text> 分</view>
+    </view>
+  </view>
+  <view class="page-bottom"></view>
+</view>
+

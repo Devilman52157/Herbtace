@@ -1,0 +1,55 @@
+<view class="{{appFontClass}} qr-page">
+  <view class="qr-hero">
+    <view class="qr-hero-title">商品溯源码测试</view>
+    <view class="qr-hero-sub">为每个商品生成直达溯源页的测试小程序码</view>
+  </view>
+
+  <view class="qr-base-tip">
+    默认打开 pages/trace/trace。后端需配置 WX_APPID、WX_SECRET；体验版测试请先在微信开发者工具上传体验版，并将 WXACODE_ENV_VERSION 设为 trial。
+  </view>
+
+  <view class="qr-section" wx:if="{{selected}}">
+    <view class="qr-card">
+      <view class="qr-card-head">
+        <text class="qr-icon">{{selected.icon}}</text>
+        <view class="qr-card-meta">
+          <view class="qr-card-name">{{selected.name}}</view>
+          <view class="qr-card-info">{{selected.origin}} · 批次 {{selected.batch}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{loading}}" class="qr-loading">正在向微信申请小程序码...</view>
+
+      <block wx:else>
+        <image class="qr-img" src="{{qrUrl}}" mode="aspectFit" bindtap="previewQr"/>
+        <view class="qr-mode {{qrMode}}">{{qrModeLabel}}</view>
+        <view wx:if="{{errorTip}}" class="qr-err">{{errorTip}}</view>
+        <view class="qr-content" bindtap="copyContent">{{qrContent}}<text class="qr-copy">点击复制</text></view>
+        <view class="qr-actions">
+          <view class="qr-act" bindtap="refreshLink">重新生成</view>
+          <view class="qr-act" bindtap="previewQr">预览/长按保存</view>
+          <view class="qr-act primary" bindtap="goPreviewTrace">预览溯源页</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="qr-list-h">选择商品</view>
+  <view class="qr-list">
+    <view
+      wx:for="{{productList}}"
+      wx:key="id"
+      class="qr-item {{selected.id === item.id ? 'active' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="pickProduct"
+    >
+      <text class="qr-item-icon">{{item.icon}}</text>
+      <view class="qr-item-body">
+        <view class="qr-item-name">{{item.name}}</view>
+        <view class="qr-item-info">{{item.origin}} · ￥{{item.price}}</view>
+        <view class="qr-item-batch">{{item.batch}}</view>
+      </view>
+      <view class="qr-item-tag">生成</view>
+    </view>
+  </view>
+</view>

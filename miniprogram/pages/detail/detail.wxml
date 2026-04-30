@@ -1,0 +1,96 @@
+<view class="{{appFontClass}} detail-page" wx:if="{{product}}">
+
+  <!-- 大图 + 收藏 -->
+  <view class="detail-img">
+    <image wx:if="{{product.image}}" class="detail-product-img" src="{{product.image}}" mode="aspectFill"/>
+    <icon wx:else name="{{product.cat==='easy'?'tea':product.cat==='home'?'sprout':'gift'}}" size="160rpx" color="#4A7C59"/>
+    <view class="detail-fav {{isFav?'on':''}}" bindtap="toggleFav">
+      <icon name="star" size="36rpx" color="{{isFav?'#B5452A':'#8B7A6B'}}"/>
+    </view>
+  </view>
+
+  <view class="detail-body">
+    <view class="detail-name">{{product.name}}</view>
+    <view class="detail-sub">{{product.origin}} · 批次 {{product.batch}}</view>
+    <view class="detail-price">¥{{product.price}}<text class="dp-unit">/{{product.unit}}</text></view>
+
+    <view class="detail-tags">
+      <text class="tag {{index%3===0?'j':index%3===1?'g':'r'}}"
+            wx:for="{{product.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <view class="detail-sec">产品介绍</view>
+    <view class="detail-text">{{product.desc}}</view>
+
+    <view class="detail-sec">溯源信息</view>
+    <view class="detail-text">本批次由产地直采 · GAP 认证 · SGS 检测合格 · 区块链存证可查</view>
+
+    <view class="trace-entry" bindtap="goTrace">
+      <icon name="shield" size="28rpx" color="#4A7C59"/>
+      <text>查看完整溯源链路 </text>
+    </view>
+
+    <view class="review-sec">
+      <view class="review-head">
+        <view>
+          <view class="review-title">买家评价</view>
+          <view class="review-sub">{{reviewSummary.count}} 条评价</view>
+        </view>
+        <view class="review-score">
+          <view class="review-score-num">{{reviewSummary.avg}}</view>
+          <view class="review-stars">
+            <text class="star-on">{{reviewSummary.stars}}</text><text class="star-off">{{reviewSummary.emptyStars}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="review-form">
+        <view class="review-form-top">
+          <text class="review-form-title">发表评价</text>
+          <view class="review-rate">
+            <text wx:for="{{reviewStars}}" wx:key="*this"
+                  class="review-rate-star {{reviewForm.rating>=item?'on':''}}"
+                  data-rating="{{item}}" bindtap="chooseRating">★</text>
+          </view>
+        </view>
+        <textarea class="review-input"
+                  disabled="{{!canReview}}"
+                  maxlength="120"
+                  value="{{reviewForm.content}}"
+                  bindinput="onReviewInput"
+                  placeholder="{{canReview?'说说这件商品的口感、包装或溯源体验':'购买后可评价'}}"
+                  placeholder-class="review-input-ph"/>
+        <button class="review-submit {{!canReview?'disabled':''}}" bindtap="submitReview" disabled="{{!canReview}}">
+          {{canReview?'提交评价':'购买后评价'}}
+        </button>
+      </view>
+
+      <view class="review-list">
+        <view class="review-item" wx:for="{{reviews}}" wx:key="id">
+          <view class="review-avatar">{{item.avatarText}}</view>
+          <view class="review-body">
+            <view class="review-row">
+              <view class="review-name">{{item.name}}</view>
+              <view class="review-date">{{item.date}}</view>
+            </view>
+            <view class="review-item-stars">
+              <text class="star-on">{{item.stars}}</text><text class="star-off">{{item.emptyStars}}</text>
+            </view>
+            <view class="review-content">{{item.content}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作?-->
+  <view class="buy-bar">
+    <view class="bb-icon" bindtap="goCart">
+      <icon name="cart" size="40rpx" color="#5C4A3A"/>
+      <text wx:if="{{cartCount>0}}" class="bb-badge">{{cartCount}}</text>
+    </view>
+    <button class="btn-cart" bindtap="addToCart">加入购物车</button>
+    <button class="btn-buy" bindtap="buyNow">立即购买</button>
+  </view>
+</view>
+

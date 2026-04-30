@@ -1,0 +1,350 @@
+/* ============ 本草?AI 养生助手 �?H5 1:1 复刻 ============ */
+.chat-page {
+  height: 100vh; display: flex; flex-direction: column; background: #F8F2E8;
+}
+
+/* ===== 消息?===== */
+.chat-msgs {
+  flex: 1;
+  padding: 32rpx 32rpx 280rpx;
+  box-sizing: border-box;
+}
+.chat-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+.chat-row.user { justify-content: flex-end; }
+.chat-row.bot  { justify-content: flex-start; }
+.chat-bubble {
+  max-width: 80%;
+  padding: 20rpx 28rpx;
+  font-size: calc(26rpx * var(--fs-scale, 1)); line-height: 1.8; letter-spacing: 1rpx;
+  word-break: break-word; white-space: pre-wrap;
+  animation: slideUp 0.3s ease;
+}
+.chat-bubble.bot {
+  background: #FFFFFF;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 4rpx 24rpx 24rpx 24rpx;
+  color: #2A1F14;
+}
+.chat-bubble.user {
+  background: #B5452A;
+  color: #E8D5B5;
+  border-radius: 24rpx 4rpx 24rpx 24rpx;
+}
+.chat-bubble.typing { padding: 20rpx 28rpx; }
+.chat-bubble.typing .dots { display: inline-flex; gap: 8rpx; }
+.chat-bubble.typing .dots view {
+  width: 10rpx; height: 10rpx; border-radius: 50%;
+  background: #8B7A6B; animation: dotB 0.6s ease infinite;
+}
+.chat-bubble.typing .dots view:nth-child(2) { animation-delay: 0.15s; }
+.chat-bubble.typing .dots view:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dotB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6rpx); } }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 快捷问题?===== */
+.quick-qs {
+  position: fixed; left: 0; right: 0;
+  bottom: calc(48rpx + 110rpx * var(--fs-scale, 1) + env(safe-area-inset-bottom));
+  z-index: 199;
+  min-height: calc(82rpx * var(--fs-scale, 1));
+  padding: 16rpx 0;
+  white-space: nowrap;
+  background: linear-gradient(to bottom, rgba(248,242,232,0) 0%, rgba(248,242,232,0.9) 30%, rgba(248,242,232,0.98) 100%);
+  box-sizing: border-box;
+}
+.quick-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 24rpx;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+.qq-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48rpx; line-height: 1.4;
+  padding: 4rpx 24rpx;
+  border: 2rpx solid #E8D5B5;
+  background: #FFFFFF;
+  border-radius: 999rpx;
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #5C4A3A; letter-spacing: 1rpx;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+  box-shadow: 0 2rpx 6rpx rgba(42,31,20,0.04);
+  box-sizing: border-box;
+}
+
+/* 体质评测入口 �?H5: 朱砂描边 + 浅朱砂底 + 朱砂?*/
+.quiz-entry-btn {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 8rpx;
+  min-height: 48rpx; padding: 4rpx 24rpx;
+  border: 3rpx solid #B5452A;
+  background: rgba(181,69,42,0.06);
+  color: #B5452A;
+  border-radius: 999rpx;
+  font-size: calc(22rpx * var(--fs-scale, 1)); font-weight: 600; letter-spacing: 1rpx;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+  box-shadow: 0 2rpx 8rpx rgba(181,69,42,0.1);
+  box-sizing: border-box;
+}
+
+/* ===== 输入?===== */
+.chat-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+  background: rgba(255,252,245,0.98);
+  backdrop-filter: blur(10px);
+  border-top: 2rpx solid #E8D5B5;
+  padding: 20rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; gap: 12rpx;
+}
+.chat-bar-row { display: flex; gap: 16rpx; align-items: center; }
+.chat-cam {
+  width: 80rpx; height: 80rpx; flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B5452A, #8C3420);
+  color: #E8D5B5;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(181,69,42,0.3);
+  position: relative;
+}
+.chat-cam::before {
+  content: ''; position: absolute; inset: 6rpx;
+  border-radius: 50%; border: 2rpx solid rgba(232,213,181,0.25);
+  pointer-events: none;
+}
+.chat-cam::after {
+  content: ''; position: absolute; top: -2rpx; right: -2rpx;
+  width: 16rpx; height: 16rpx; border-radius: 50%;
+  background: #C4935A; border: 4rpx solid #F8F2E8;
+  animation: camGlow 2s ease-in-out infinite;
+}
+@keyframes camGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(196,147,90,0.6); }
+  50% { box-shadow: 0 0 0 10rpx rgba(196,147,90,0); }
+}
+.chat-input {
+  flex: 1; min-height: calc(72rpx * var(--fs-scale, 1));
+  padding: 0 28rpx; line-height: 1.5; box-sizing: border-box;
+  border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  background: #FFFFFF;
+  font-size: calc(26rpx * var(--fs-scale, 1)); color: #2A1F14;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+}
+.chat-input-ph { font-size: calc(26rpx * var(--fs-scale, 1)); color: #B5A595; }
+.chat-send {
+  flex-shrink: 0;
+  min-height: calc(72rpx * var(--fs-scale, 1)); line-height: 1.4;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 32rpx;
+  background: #B5452A; color: #E8D5B5;
+  border-radius: 12rpx;
+  font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 600; letter-spacing: 2rpx;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+  text-align: center;
+}
+.chat-send.disabled { opacity: 0.5; }
+.chat-disclaimer {
+  font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; text-align: center; letter-spacing: 0.5rpx;
+}
+
+/* ===== 拍照问诊面板 cam-sheet ===== */
+.cam-sheet {
+  display: none;
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(42,31,20,0.55);
+  align-items: flex-end; justify-content: center;
+}
+.cam-sheet.show { display: flex; }
+.cam-sheet-inner {
+  width: 100%;
+  background: #F8F2E8;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 16rpx 32rpx calc(40rpx + env(safe-area-inset-bottom));
+  animation: slideUpSheet 0.3s ease;
+}
+@keyframes slideUpSheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.cam-handle {
+  width: 72rpx; height: 6rpx; background: #D4C5A8;
+  border-radius: 4rpx; margin: 0 auto 24rpx;
+}
+.cam-title {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(38rpx * var(--fs-scale, 1)); color: #2A1F14;
+  letter-spacing: 8rpx; text-align: center;
+}
+.cam-subt {
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  letter-spacing: 2rpx; text-align: center;
+  margin-top: 8rpx; margin-bottom: 28rpx;
+}
+.cam-opts { display: flex; flex-direction: column; gap: 16rpx; }
+.cam-opt {
+  display: flex; align-items: center; gap: 24rpx;
+  padding: 24rpx 28rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 16rpx;
+}
+.cam-opt:active { background: #FFF8F0; border-color: #B5452A; }
+.cam-opt-ic {
+  width: 80rpx; height: 80rpx; flex-shrink: 0;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #3D2E1F, #4A3828);
+  display: flex; align-items: center; justify-content: center;
+}
+.cam-opt-body { flex: 1; min-width: 0; }
+.cam-opt-t {
+  font-size: calc(28rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14;
+  letter-spacing: 1rpx;
+}
+.cam-opt-d {
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  margin-top: 4rpx; letter-spacing: 0.5rpx; line-height: 1.5;
+}
+.cam-opt-arr { flex-shrink: 0; }
+.cam-tip {
+  display: flex; gap: 12rpx; align-items: flex-start;
+  margin-top: 24rpx; padding: 18rpx 20rpx;
+  background: rgba(196,147,90,0.08);
+  border-radius: 10rpx;
+  font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  line-height: 1.6; letter-spacing: 0.5rpx;
+}
+
+/* ===== 体质评测弹窗 quiz-overlay ===== */
+.quiz-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 700;
+  background: rgba(42,31,20,0.65);
+  align-items: flex-end; justify-content: center;
+}
+.quiz-overlay.show { display: flex; }
+.quiz-card {
+  width: 100%; max-height: 88vh;
+  background: #F8F2E8;
+  border-radius: 40rpx 40rpx 0 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: slideUpSheet 0.35s ease;
+}
+.quiz-head {
+  background: linear-gradient(135deg, #2A1F14, #3D2E1F);
+  padding: 32rpx 36rpx 28rpx;
+  color: #E8D5B5;
+  position: relative; flex-shrink: 0;
+}
+.quiz-close {
+  position: absolute; top: 28rpx; right: 28rpx;
+  width: 56rpx; height: 56rpx;
+  background: rgba(232,213,181,0.12);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #E8D5B5; font-size: calc(36rpx * var(--fs-scale, 1)); line-height: 1;
+}
+.quiz-htag {
+  font-size: calc(20rpx * var(--fs-scale, 1)); letter-spacing: 4rpx;
+  color: rgba(232,213,181,0.5);
+  margin-bottom: 12rpx;
+}
+.quiz-htitle {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(40rpx * var(--fs-scale, 1)); letter-spacing: 6rpx;
+}
+.quiz-hsub {
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: rgba(232,213,181,0.6);
+  margin-top: 6rpx; letter-spacing: 2rpx;
+}
+.quiz-prog-wrap {
+  margin-top: 24rpx; height: 6rpx;
+  background: rgba(196,147,90,0.2);
+  border-radius: 4rpx; overflow: hidden;
+}
+.quiz-prog-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #B5452A, #C4935A);
+  border-radius: 4rpx;
+  transition: width 0.4s ease;
+}
+.quiz-step {
+  font-size: calc(20rpx * var(--fs-scale, 1));
+  color: rgba(232,213,181,0.5);
+  margin-top: 10rpx; letter-spacing: 2rpx;
+}
+.quiz-body {
+  flex: 1; padding: 36rpx 36rpx 16rpx;
+  max-height: 58vh;
+}
+.quiz-q {
+  font-size: calc(30rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14;
+  line-height: 1.6; letter-spacing: 1rpx;
+  margin-bottom: 28rpx;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+}
+.quiz-opts { display: flex; flex-direction: column; gap: 18rpx; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 20rpx;
+  padding: 22rpx 28rpx;
+  background: #FFFFFF;
+  border: 3rpx solid #E8D5B5;
+  border-radius: 20rpx;
+}
+.quiz-opt.selected {
+  border-color: #B5452A;
+  background: rgba(181,69,42,0.05);
+}
+.quiz-opt-tag {
+  width: 44rpx; height: 44rpx; flex-shrink: 0;
+  border-radius: 50%;
+  border: 3rpx solid #C4935A;
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: calc(20rpx * var(--fs-scale, 1)); color: #5C4A3A;
+}
+.quiz-opt.selected .quiz-opt-tag {
+  background: #B5452A;
+  border-color: #B5452A;
+  color: #FFFFFF;
+}
+.quiz-opt-text {
+  flex: 1;
+  font-size: calc(26rpx * var(--fs-scale, 1)); color: #2A1F14;
+  line-height: 1.5;
+}
+.quiz-foot {
+  flex-shrink: 0;
+  padding: 24rpx 36rpx calc(40rpx + env(safe-area-inset-bottom));
+  border-top: 2rpx solid #E8D5B5;
+  background: #F8F2E8;
+  display: flex; gap: 16rpx;
+}
+.quiz-btn {
+  flex: 1; min-height: 88rpx; line-height: 1.4; padding: 18rpx 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14rpx;
+  font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700;
+  letter-spacing: 4rpx; text-align: center;
+  font-family: 'LXGW WenKai','Noto Serif SC','Songti SC','STSong',serif;
+}
+.quiz-btn.primary {
+  background: #B5452A; color: #E8D5B5;
+  box-shadow: 0 6rpx 20rpx rgba(181,69,42,0.25);
+}
+.quiz-btn.ghost {
+  background: transparent;
+  border: 2rpx solid #C4935A;
+  color: #5C4A3A;
+}
+.quiz-btn.disabled { opacity: 0.4; }

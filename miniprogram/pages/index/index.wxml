@@ -1,0 +1,154 @@
+<view class="{{appFontClass}} page-home">
+
+  <!-- Hero：毛笔字"云上祁州" + 右下扫码入口 -->
+  <view class="hero">
+    <view class="hero-aurora"></view>
+    <view class="hero-glow"></view>
+    <view class="hero-clouds"></view>
+    <view class="hero-deco">溯</view>
+    <view class="hero-tag anim-in-1">壹 · 康养溯源</view>
+    <view class="hero-title anim-in-2">
+      <image class="hero-logo" src="/assets/brand/logo-cloud-light.png" mode="aspectFit"/>
+      <text class="ht-char">云</text>
+      <text class="ht-char">上</text>
+      <text class="ht-char">祁</text>
+      <text class="ht-char">州</text>
+    </view>
+    <view class="hero-sub anim-in-3">扫一下，溯源安国好材，解锁轻养茶方</view>
+  </view>
+
+  <!-- 扫码按钮 -->
+  <view class="scan-section">
+    <view class="scan-btn" bindtap="onScan" hover-class="btn-hover">
+      <view class="scan-btn-shine"></view>
+      <view class="scan-btn-inner">
+        <view class="scan-btn-icon"><icon name="scan" size="44rpx" color="#FFE7A8"/></view>
+        <text class="scan-txt">扫码溯源</text>
+      </view>
+      <view class="scan-btn-badge">每味药材 · 一码可溯</view>
+    </view>
+  </view>
+
+  <!-- 分类 -->
+  <view class="divider"><text class="label">逛一逛</text></view>
+  <scroll-view scroll-x class="cat-scroll" enhanced show-scrollbar="{{false}}">
+    <view class="cat-row">
+      <view class="cat-card" wx:for="{{cats}}" wx:key="id"
+            data-cat="{{item.id}}" bindtap="goShop" hover-class="card-hover">
+        <view class="cat-ic"><icon name="{{item.icon}}" size="56rpx" color="#5C4A3A"/></view>
+        <view class="cat-name">{{item.name}}</view>
+        <view class="cat-sub">{{item.sub}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 特色功能：六宫格渐变卡片 -->
+  <view class="divider"><text class="label">本草秘境</text></view>
+  <view class="feat-grid">
+    <view class="feat-card feat-{{item.id}}" wx:for="{{features}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="goFeat" hover-class="card-hover">
+      <view class="feat-ic"><icon name="{{item.icon}}" size="56rpx" color="#FFFFFF"/></view>
+      <view class="feat-name">{{item.name}}</view>
+      <view class="feat-sub">{{item.sub}}</view>
+    </view>
+  </view>
+
+  <!-- 节气养生 -->
+  <view class="divider"><text class="label">节气养生</text></view>
+  <scroll-view scroll-x class="jieqi-strip" enhanced show-scrollbar="{{false}}" scroll-into-view="{{currentJieqiViewId}}" scroll-with-animation>
+    <view class="jieqi-card jieqi-{{item.season}} {{item.status}}"
+          wx:for="{{jieqiList}}" wx:key="id"
+          id="jieqi-{{item.id}}"
+          data-id="{{item.id}}" bindtap="goJieqi">
+      <view wx:if="{{item.status==='current'}}" class="jq-badge">当令</view>
+      <view class="jq-iconwrap">
+        <icon name="{{item.icon}}" size="36rpx" color="{{item.iconColor}}"/>
+      </view>
+      <view class="jq-name">{{item.name}}</view>
+      <view class="jq-date">{{item.dateRange}}</view>
+      <view class="jq-poem">{{item.poem}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 今日精选 -->
+  <view class="divider"><text class="label">今日精选</text></view>
+  <view class="product-list">
+    <view class="product-card" wx:for="{{picks}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="goTrace" hover-class="card-hover">
+      <view class="p-thumb">
+        <image wx:if="{{item.image}}" class="p-img" src="{{item.image}}" mode="aspectFit"/>
+        <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="72rpx" color="#4A7C59"/>
+      </view>
+      <view class="p-body">
+        <view class="p-name">{{item.name}}</view>
+        <view class="p-origin">
+          <icon name="pin" size="22rpx" color="#8B7A6B"/>
+          <text>{{item.origin}}</text>
+        </view>
+        <view class="p-tags">
+          <text class="tag {{index%3===0?'j':index%3===1?'':'r'}}"
+                wx:for="{{item.tags}}" wx:for-item="t" wx:key="*this">{{t}}</text>
+        </view>
+        <view class="p-price-row">
+          <view class="p-price">¥{{item.price}}<text class="p-unit">/{{item.unit}}</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="foot-more" bindtap="goShop" data-cat="all">查看全部商品 </view>
+  <view class="page-bottom"></view>
+
+  <view wx:if="{{showLoginModal}}" class="login-modal" catchtouchmove="noop">
+    <view class="login-mask" bindtap="closeLoginModal"></view>
+    <view class="login-sheet card-corner" catchtap="noop">
+      <button class="login-close" bindtap="closeLoginModal" hover-class="login-icon-hover" aria-label="关闭登录弹窗">
+        <icon name="close" size="30rpx" color="#8B7A6B"/>
+      </button>
+
+      <view class="login-sheet-head">
+        <image class="login-sheet-logo" src="/assets/brand/logo-cloud-light.png" mode="aspectFit"/>
+        <view class="login-seal-mark">
+          <icon name="shield" size="48rpx" color="#E8D5B5"/>
+        </view>
+        <view class="login-kicker">会员身份</view>
+        <view class="login-title cn-brush">云上祁州</view>
+        <view class="login-subtitle">登录后同步积分、订单与溯源记录</view>
+      </view>
+
+      <view class="login-benefit-list">
+        <view class="login-benefit-item">
+          <view class="login-benefit-ic"><icon name="coin" size="30rpx" color="#B5452A"/></view>
+          <text>扫码得积分，会员权益随身带走</text>
+        </view>
+        <view class="login-benefit-item">
+          <view class="login-benefit-ic"><icon name="chain" size="30rpx" color="#4A7C59"/></view>
+          <text>保存溯源记录与问诊历史</text>
+        </view>
+        <view class="login-benefit-item">
+          <view class="login-benefit-ic"><icon name="ticket" size="30rpx" color="#C4935A"/></view>
+          <text>优惠券、订单和收藏自动同步</text>
+        </view>
+      </view>
+
+      <button
+        class="login-wechat-btn"
+        loading="{{loginLoading}}"
+        disabled="{{loginLoading}}"
+        bindtap="handleLoginModalDemo"
+        hover-class="login-btn-hover"
+      >
+        <view class="login-wechat-inner">
+          <icon name="user" size="36rpx" color="#FFE7A8"/>
+          <text>{{loginLoading ? '进入中' : '演示登录'}}</text>
+        </view>
+      </button>
+
+      <button class="login-later" bindtap="closeLoginModal" hover-class="login-later-hover">暂不登录，先逛逛</button>
+      <view class="login-note">
+        <icon name="shield" size="22rpx" color="#8B7A6B"/>
+        <text>演示阶段仅保存本地身份，不触发微信授权</text>
+      </view>
+    </view>
+  </view>
+</view>

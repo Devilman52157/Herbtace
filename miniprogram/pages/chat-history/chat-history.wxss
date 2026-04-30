@@ -1,0 +1,22 @@
+/* ============ ¼ ============ */
+.chist-page { background: #F8F2E8; min-height: 100vh; padding: 24rpx 0 40rpx; }
+
+.chist-list { padding: 0 40rpx; display: flex; flex-direction: column; gap: 16rpx; }
+.chist-card {
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  padding: 24rpx; display: flex; align-items: center; gap: 20rpx;
+}
+.chist-avatar {
+  width: 72rpx; height: 72rpx; border-radius: 50%;
+  background: linear-gradient(135deg, #2A1F14, #5C4A3A);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.chist-body { flex: 1; min-width: 0; }
+.chist-title { font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; letter-spacing: 1rpx; }
+.chist-last {
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-top: 6rpx;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chist-time { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; flex-shrink: 0; }
+
+.page-bottom { height: 40rpx; }

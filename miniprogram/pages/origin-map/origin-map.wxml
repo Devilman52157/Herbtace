@@ -1,0 +1,39 @@
+<view class="{{appFontClass}} page-map">
+  <view class="map-hero">
+    <view class="map-title">河北安国 · 八大道地基地</view>
+    <view class="map-sub">点击地图上的朱砂点查看详情</view>
+  </view>
+
+  <view class="map-stage">
+    <image class="map-svg" src="{{mapSrc}}" mode="aspectFit"/>
+    <view class="map-pins">
+      <view class="map-pin" wx:for="{{points}}" wx:key="id"
+            style="top:{{item.top}};left:{{item.left}};"
+            data-id="{{item.id}}" bindtap="openPoint">
+        <view class="dot"></view>
+        <view class="lbl">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="map-legend">
+    <view class="legend-item" wx:for="{{points}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="openPoint">
+      <view class="legend-dot"></view>
+      <view class="legend-n">{{item.name}}</view>
+      <view class="legend-d">{{item.tag}}</view>
+    </view>
+  </view>
+
+  <view class="mask" wx:if="{{active}}" bindtap="close"></view>
+  <view class="sheet" wx:if="{{active}}" catchtap="noop">
+    <view class="sh-top">
+      <text class="sh-name">{{active.name}}</text>
+      <view class="sh-close" bindtap="close"><icon name="close" size="32rpx" color="#2A1F14"/></view>
+    </view>
+    <view class="sh-row"><text class="k">性味</text><text class="v">{{active.nature}}</text></view>
+    <view class="sh-row"><text class="k">功效</text><text class="v">{{active.effect}}</text></view>
+    <view class="sh-row"><text class="k">用法</text><text class="v">{{active.usage}}</text></view>
+  </view>
+</view>
+

@@ -1,0 +1,119 @@
+<view class="{{appFontClass}} vision-page">
+
+  <!-- ============ 取景态：全屏相机预览 ============ -->
+  <block wx:if="{{!imgPath && !report && !herb}}">
+    <view class="cam-stage">
+      <camera
+        wx:if="{{cameraReady}}"
+        device-position="{{devicePosition}}"
+        flash="off"
+        class="cam-feed"
+        binderror="onCamError"></camera>
+
+      <!-- 错误兜底（cover-view 才能盖在原生 camera 上） -->
+      <cover-view wx:if="{{camError}}" class="cam-err">
+        <cover-view class="cam-err-t">无法访问摄像头</cover-view>
+        <cover-view class="cam-err-d">请检查权限设置，或点击下方「从相册选择」</cover-view>
+      </cover-view>
+
+      <!-- 取景框 + 引导 -->
+      <cover-view class="cam-guide">{{guideText}}</cover-view>
+
+      <!-- 顶部：标题 + 切换前后摄像头 -->
+      <cover-view class="cam-top">
+        <cover-view class="cam-title">{{modeLabel}}</cover-view>
+        <cover-view class="cam-switch" bindtap="onSwitchCamera">
+          <cover-image class="cam-switch-icon" src="/assets/icons/camera-switch.png"></cover-image>
+        </cover-view>
+      </cover-view>
+
+      <!-- 底部操作栏 -->
+      <cover-view class="cam-bottom">
+        <cover-view class="cam-gallery" bindtap="onAlbum">
+          <cover-image class="cam-gallery-icon" src="/assets/icons/album.png"></cover-image>
+        </cover-view>
+        <cover-view class="cam-shutter" bindtap="onShutter">
+          <cover-view class="cam-shutter-in"></cover-view>
+        </cover-view>
+        <cover-view class="cam-spacer"></cover-view>
+      </cover-view>
+    </view>
+  </block>
+
+  <!-- ============ 预览态：拍下后确认 ============ -->
+  <view class="preview-stage" wx:if="{{imgPath && !report && !herb}}">
+    <image src="{{imgPath}}" mode="aspectFit" class="preview-img"/>
+    <view class="preview-bar">
+      <button class="btn-ghost" bindtap="onRetake">重拍</button>
+      <button class="btn-primary" bindtap="onAnalyze" disabled="{{analyzing}}">
+        <text wx:if="{{analyzing}}">辨证中...</text>
+        <text wx:else>就用这张 · 开始辨证</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- ============ 辨证报告 ============ -->
+  <scroll-view scroll-y class="result-scroll" wx:if="{{report || herb}}">
+    <view class="header">
+      <view class="title">{{modeLabel}}</view>
+    </view>
+
+    <view class="report" wx:if="{{report}}">
+      <view class="rep-title">辨证结果 <text wx:if="{{report._fallback}}" class="fb">(离线示例)</text></view>
+      <view class="rep-const">
+        <text class="const-main">{{report.constitution}}</text>
+        <text class="const-sub">· {{report.subtype}}</text>
+        <text class="const-conf">置信度 {{report.confidence}}%</text>
+      </view>
+      <view class="rep-summary">{{report.summary}}</view>
+
+      <view class="rep-section" wx:if="{{report.scores}}">
+        <view class="sec-title">体质倾向</view>
+        <view class="score-row" wx:for="{{report.scores}}" wx:key="k">
+          <text class="sk">{{item.k}}</text>
+          <view class="sbar"><view class="sfill" style="width:{{item.v*10}}%;background:{{item.c}}"></view></view>
+          <text class="sv">{{item.v}}</text>
+        </view>
+      </view>
+
+      <view class="rep-section" wx:if="{{report.traits}}">
+        <view class="sec-title">观察特征</view>
+        <view class="traits">
+          <text class="trait" wx:for="{{report.traits}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="rep-blessing" wx:if="{{report.blessing}}">{{report.blessing}}</view>
+
+      <view class="rep-section" wx:if="{{report.recommendations}}">
+        <view class="sec-title">推荐方案</view>
+        <view class="rec" wx:for="{{report.recommendations}}" wx:key="name">
+          <view class="rec-name">{{item.name}} <text class="rec-match">匹配 {{item.match}}%</text></view>
+          <view class="rec-desc">{{item.desc}}</view>
+          <view class="rec-price">¥{{item.price}}/{{item.unit}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="report" wx:if="{{herb}}">
+      <block wx:if="{{herb.matched}}">
+        <view class="rep-title">识别结果</view>
+        <view class="herb-name">{{herb.name}} <text class="herb-conf">{{herb.confidence}}%</text></view>
+        <view class="herb-latin" wx:if="{{herb.latin}}">{{herb.latin}}</view>
+        <view class="herb-row" wx:if="{{herb.nature}}"><text class="k">性味归经</text>{{herb.nature}}</view>
+        <view class="herb-row" wx:if="{{herb.effect}}"><text class="k">功效</text>{{herb.effect}}</view>
+        <view class="herb-row" wx:if="{{herb.notes}}"><text class="k">识别依据</text>{{herb.notes}}</view>
+      </block>
+      <block wx:else>
+        <view class="rep-title">未识别</view>
+        <view class="herb-row">{{herb.reason}}</view>
+      </block>
+    </view>
+
+    <view class="result-actions">
+      <button class="btn-ghost" bindtap="onRetake">重新拍摄</button>
+      <button class="btn-primary" bindtap="goChat">咨询本草君</button>
+    </view>
+  </scroll-view>
+
+</view>

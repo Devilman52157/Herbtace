@@ -1,0 +1,94 @@
+<view class="{{appFontClass}} expert-page">
+
+  <view class="expert-hero">
+    <view class="expert-hero-title">名医问诊</view>
+    <view class="expert-hero-sub">名医在线 · AI辅助 · 个性化养生方案</view>
+  </view>
+
+  <view class="expert-tabs">
+    <view class="expert-tab {{activeTab===item.id?'active':''}}" wx:for="{{tabs}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="switchTab">
+      {{item.name}}
+    </view>
+  </view>
+
+  <block wx:if="{{activeTab==='ask'}}">
+    <view class="ai-entry" bindtap="goBencao">
+      <view class="ai-entry-ic"><icon name="ai" size="48rpx" color="#E8D5B5"/></view>
+      <view class="ai-entry-text">
+        <view class="ai-entry-title">AI 养生助手</view>
+        <view class="ai-entry-sub">智能体质分析 · 24 小时在线</view>
+      </view>
+      <icon name="chevron" size="28rpx" color="#E8D5B5"/>
+    </view>
+
+    <view class="section-divider hot-divider">今日推荐</view>
+    <scroll-view scroll-x class="hot-strip" enhanced show-scrollbar="{{false}}">
+      <view class="hot-card" wx:for="{{hotTopics}}" wx:key="id">
+        <view class="hot-card-tag">{{item.tag}}</view>
+        <view class="hot-card-text">{{item.text}}</view>
+        <view class="hot-card-hint">{{item.hint}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="section-divider">坐诊名医</view>
+
+    <view class="expert-list">
+      <view class="expert-card" wx:for="{{experts}}" wx:key="id"
+            data-id="{{item.id}}" bindtap="goExpert">
+        <view class="expert-avatar">
+          <icon name="doctor" size="40rpx" color="#E8D5B5"/>
+          <view class="expert-status expert-status-{{item.status}}">
+            <view class="expert-status-dot"></view>
+            <text>{{item.statusText}}</text>
+          </view>
+        </view>
+        <view class="expert-info">
+          <view class="expert-name">{{item.name}}</view>
+          <view class="expert-title">{{item.title}}</view>
+          <view class="expert-spec">
+            <text class="expert-spec-label">擅长</text>
+            <text class="expert-spec-text">{{item.speciality}}</text>
+          </view>
+          <view class="expert-meta">
+            <view class="expert-meta-item">
+              <text class="expert-rating">★ {{item.rating}}</text>
+            </view>
+            <view class="expert-meta-divider"></view>
+            <view class="expert-meta-item">
+              <text class="expert-consults">接诊 {{item.consults}}</text>
+            </view>
+          </view>
+          <view class="expert-motto">「{{item.motto}}」</view>
+          <view class="expert-foot">
+            <view class="expert-price">
+              <text class="expert-price-num">¥{{item.price}}</text>
+              <text class="expert-price-unit">/次</text>
+            </view>
+            <view class="expert-btn">
+              <icon name="message" size="20rpx" color="#B5452A"/>
+              <text>在线咨询</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{activeTab==='faq'}}">
+    <view class="faq-list">
+      <view class="faq-card" wx:for="{{faqs}}" wx:key="q">
+        <view class="faq-q-row">
+          <view class="faq-q-ic">?</view>
+          <view class="faq-q">{{item.q}}</view>
+        </view>
+        <view class="faq-a-row">
+          <view class="faq-a-ic"><icon name="doctor" size="28rpx" color="#4A7C59"/></view>
+          <view class="faq-a">{{item.a}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view class="page-bottom"></view>
+</view>

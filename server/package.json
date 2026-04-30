@@ -1,0 +1,17 @@
+{
+  "name": "bencao-ai-server",
+  "version": "1.0.0",
+  "description": "云上祁州 AI 后端 —— OpenAI-compatible 代理服务",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

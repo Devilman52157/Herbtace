@@ -1,0 +1,3 @@
+<view class="ic-wrap" style="width:{{size}};height:{{size}};">
+  <image src="{{src}}" style="width:100%;height:100%;" mode="aspectFit"/>
+</view>

@@ -1,0 +1,45 @@
+<view class="{{appFontClass}} orders-page">
+
+  <!-- Pill tabs -->
+  <scroll-view scroll-x class="shop-tabs" enhanced show-scrollbar="{{false}}">
+    <view class="shop-tab {{active===item.k?'active':''}}" wx:for="{{tabs}}" wx:key="k"
+          data-k="{{item.k}}" bindtap="switchTab">{{item.n}}</view>
+  </scroll-view>
+
+  <block wx:if="{{filteredOrders.length===0}}">
+    <view class="empty-state">
+      <view class="empty-state-ic"><icon name="box" size="96rpx" color="#C4935A"/></view>
+      <view class="empty-state-t">暂无订单</view>
+      <view class="empty-state-s">购买心仪的药材，开启养生之旅</view>
+      <view class="empty-cta" bindtap="goShop">去商城</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="order-card" wx:for="{{filteredOrders}}" wx:key="id">
+      <view class="order-head">
+        <text class="order-no">订单 {{item.id}}</text>
+        <text class="order-status">{{item.status}}</text>
+      </view>
+      <view class="order-items">
+        <view class="order-itm" wx:for="{{item.items}}" wx:for-item="it" wx:key="name">
+          <view class="order-itm-thumb">
+            <image wx:if="{{it.image}}" class="order-itm-img" src="{{it.image}}" mode="aspectFill"/>
+            <icon wx:else name="{{it.cat==='easy'?'tea':it.cat==='home'?'sprout':'gift'}}" size="40rpx" color="#4A7C59"/>
+          </view>
+          <view class="order-itm-body">
+            <view class="order-itm-name">{{it.name}}</view>
+            <view class="order-itm-qty">×{{it.qty}}</view>
+          </view>
+          <view class="order-itm-price">¥{{it.price}}</view>
+        </view>
+      </view>
+      <view class="order-foot">
+        <text class="order-date">{{item.time}}</text>
+        <view class="order-total">合计<text class="ot-amt">¥{{item.total}}</text></view>
+      </view>
+    </view>
+  </block>
+
+  <view class="page-bottom"></view>
+</view>

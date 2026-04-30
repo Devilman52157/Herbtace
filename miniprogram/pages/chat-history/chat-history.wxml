@@ -1,0 +1,25 @@
+<view class="{{appFontClass}} chist-page">
+  <block wx:if="{{list.length===0}}">
+    <view class="empty-state">
+      <view class="empty-state-ic"><icon name="chat" size="96rpx" color="#C4935A"/></view>
+      <view class="empty-state-t">暂无问诊记录</view>
+      <view class="empty-state-s">开启一次对话，记录您的问诊历程</view>
+      <view class="empty-cta" bindtap="go">去问诊</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="chist-list">
+      <view class="chist-card" wx:for="{{list}}" wx:key="t" data-p="{{item.persona}}" bindtap="go">
+        <view class="chist-avatar"><icon name="chat" size="40rpx" color="#E8D5B5"/></view>
+        <view class="chist-body">
+          <view class="chist-title">{{item.title}}</view>
+          <view class="chist-last">{{item.last}}</view>
+        </view>
+        <view class="chist-time">{{item.t}}</view>
+      </view>
+    </view>
+  </block>
+  <view class="page-bottom"></view>
+</view>
+

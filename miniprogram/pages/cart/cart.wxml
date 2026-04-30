@@ -1,0 +1,49 @@
+<view class="{{appFontClass}} cart-page">
+
+  <view wx:if="{{items.length===0}}" class="empty-state">
+    <view class="empty-state-ic">
+      <icon name="cart" size="96rpx" color="#C4935A"/>
+    </view>
+    <view class="empty-state-t">购物车是空的</view>
+    <view class="empty-state-s">去商城挑几味好药材吧</view>
+    <view class="empty-cta" bindtap="goShop">去商城</view>
+  </view>
+
+  <view wx:else>
+    <view class="cart-item" wx:for="{{items}}" wx:key="id">
+      <view class="cart-thumb">
+        <image wx:if="{{item.image}}" class="cart-img" src="{{item.image}}" mode="aspectFill"/>
+        <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="60rpx" color="#4A7C59"/>
+      </view>
+      <view class="cart-body">
+        <view class="cart-name">{{item.name}}</view>
+        <view class="cart-sub">{{item.origin}} · {{item.unit}}</view>
+        <view class="cart-row2">
+          <view class="cart-price">¥{{item.price}}</view>
+          <view class="cart-qty">
+            <view class="cart-qty-btn" data-id="{{item.id}}" bindtap="dec">-</view>
+            <text class="cart-qty-num">{{item.qty}}</text>
+            <view class="cart-qty-btn" data-id="{{item.id}}" bindtap="inc">+</view>
+            <view class="cart-remove" data-id="{{item.id}}" bindtap="remove">删除</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{items.length>0 && couponHint}}" class="cart-coupon">
+    <icon name="ticket" size="30rpx" color="#B5452A"/>
+    <text>{{couponHint}}</text>
+  </view>
+
+  <view wx:if="{{items.length>0}}" class="cart-bar">
+    <view class="cart-bar-total">
+      <view class="cart-bar-lbl">合计</view>
+      <view class="cart-bar-price">¥{{total}}</view>
+    </view>
+    <view class="cart-bar-btn" bindtap="checkout">去结算</view>
+  </view>
+
+  <view class="page-bottom" wx:if="{{items.length>0}}"></view>
+</view>
+

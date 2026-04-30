@@ -1,0 +1,30 @@
+<view class="{{appFontClass}} echat-page" wx:if="{{expert}}">
+
+  <view class="echat-header">
+    <view class="echat-avatar">{{expert.name[0]}}</view>
+    <view class="echat-info">
+      <view class="echat-name">{{expert.name}}<text class="echat-badge">在线</text></view>
+      <view class="echat-title">{{expert.title}} · 专长 {{expert.speciality}}</view>
+    </view>
+  </view>
+
+  <scroll-view class="chat-msgs" scroll-y scroll-top="{{scrollTop}}" scroll-with-animation>
+    <view class="chat-bubble {{item.role==='user'?'user':'bot'}}"
+          wx:for="{{messages}}" wx:key="index">{{item.content}}</view>
+    <view wx:if="{{sending}}" class="chat-bubble bot typing">
+      <text>专家思考中</text>
+      <view class="typing-dots"><view/><view/><view/></view>
+    </view>
+  </scroll-view>
+
+  <view class="chat-bar">
+    <view class="chat-bar-row">
+      <input class="chat-input" placeholder-class="chat-input-ph" value="{{input}}" bindinput="onInput"
+             placeholder="请描述您的症状..."
+             confirm-type="send" bindconfirm="onSend"/>
+      <button class="chat-send" bindtap="onSend" disabled="{{sending}}">发送</button>
+    </view>
+    <view class="chat-disclaimer">⚠️ 专家建议仅供参考，重要疾病请至医院当面就诊</view>
+  </view>
+</view>
+

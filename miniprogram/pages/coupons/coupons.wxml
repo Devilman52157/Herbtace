@@ -1,0 +1,58 @@
+<view class="{{appFontClass}} coupon-page">
+  <view class="coupon-hero">
+    <view class="coupon-hero-left">
+      <view class="coupon-kicker">BENCAO COUPON</view>
+      <view class="coupon-title">我的优惠券</view>
+      <view class="coupon-sub">结算时满足门槛会提示使用，帮你把每一单省得明明白白。</view>
+    </view>
+    <view class="coupon-hero-ic">
+      <icon name="ticket" size="72rpx" color="#FFE7A8"/>
+    </view>
+  </view>
+
+  <view class="coupon-summary">
+    <view class="coupon-summary-item">
+      <view class="coupon-summary-num">{{availableCoupons.length}}</view>
+      <view class="coupon-summary-label">可用券</view>
+    </view>
+    <view class="coupon-summary-item">
+      <view class="coupon-summary-num">{{usedCoupons.length}}</view>
+      <view class="coupon-summary-label">已使用</view>
+    </view>
+    <view class="coupon-summary-btn" bindtap="claimToday" hover-class="hover-dim">领取今日优惠</view>
+  </view>
+
+  <view class="coupon-tabs">
+    <view class="coupon-tab {{active===item.id?'active':''}}" wx:for="{{tabs}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="switchTab">
+      {{item.name}}
+    </view>
+  </view>
+
+  <view class="coupon-list" wx:if="{{list.length}}">
+    <view class="coupon-card {{item.statusClass}}" wx:for="{{list}}" wx:key="id">
+      <view class="coupon-card-main">
+        <view class="coupon-money">
+          <text class="coupon-yen">¥</text>{{item.amount}}
+        </view>
+        <view class="coupon-info">
+          <view class="coupon-card-title">{{item.title}}</view>
+          <view class="coupon-card-desc">{{item.desc}} · {{item.condition}}</view>
+          <view class="coupon-card-time">{{item.claimedText}}</view>
+          <view wx:if="{{item.usedText}}" class="coupon-card-time">{{item.usedText}}</view>
+        </view>
+        <view class="coupon-status">{{item.statusText}}</view>
+      </view>
+      <view class="coupon-rule">{{item.rule}}</view>
+      <view wx:if="{{!item.used}}" class="coupon-use" bindtap="goShop" hover-class="hover-dim">去商城使用</view>
+    </view>
+  </view>
+
+  <view class="coupon-empty" wx:else>
+    <icon name="ticket" size="88rpx" color="#C4935A"/>
+    <view class="coupon-empty-title">暂无优惠券</view>
+    <view class="coupon-empty-sub">点击上方按钮领取今日优惠</view>
+  </view>
+
+  <view class="page-bottom"></view>
+</view>

@@ -1,0 +1,37 @@
+<view class="{{appFontClass}} page-atlas">
+  <view class="atlas-hero">
+    <view class="atlas-title">祁八药图鉴</view>
+    <view class="atlas-sub">壹方水土 · 八味道地</view>
+    <view class="atlas-poem">秦豫之交，药香千年</view>
+  </view>
+
+  <view class="herb-grid">
+    <view class="herb-card" wx:for="{{herbs}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="openHerb" hover-class="card-hover">
+      <view class="herb-seq">{{item.seq}}</view>
+      <view class="herb-ic"><icon name="{{item.icon}}" size="80rpx" color="#4A7C59"/></view>
+      <view class="herb-name">{{item.name}}</view>
+      <view class="herb-latin">{{item.latin}}</view>
+      <view class="herb-tag">{{item.tag}}</view>
+    </view>
+  </view>
+  <view class="page-bottom"></view>
+
+  <!-- 详情抽屉 -->
+  <view class="mask" wx:if="{{active}}" bindtap="close"></view>
+  <view class="sheet" wx:if="{{active}}" catchtap="noop">
+    <view class="sheet-hero">
+      <view class="sh-close" bindtap="close"><icon name="close" size="32rpx" color="#2A1F14"/></view>
+      <view class="sh-ic"><icon name="{{active.icon}}" size="112rpx" color="#4A7C59"/></view>
+      <view class="sh-name">{{active.name}}</view>
+      <view class="sh-latin">{{active.latin}}</view>
+    </view>
+    <view class="sh-body">
+      <view class="sh-sec"><view class="sh-lbl">性味归经</view><view class="sh-val">{{active.nature}}</view></view>
+      <view class="sh-sec"><view class="sh-lbl">功效主治</view><view class="sh-val">{{active.effect}}</view></view>
+      <view class="sh-sec"><view class="sh-lbl">使用建议</view><view class="sh-val">{{active.usage}}</view></view>
+      <view class="sh-sec"><view class="sh-lbl">道地产区</view><view class="sh-val">{{active.origin}}</view></view>
+    </view>
+  </view>
+</view>
+

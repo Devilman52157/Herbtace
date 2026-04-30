@@ -1,0 +1,2 @@
+.ic-wrap{display:inline-flex;align-items:center;justify-content:center;line-height:1;}
+.ic-wrap text{line-height:1;}

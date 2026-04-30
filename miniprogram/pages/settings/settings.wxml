@@ -1,0 +1,66 @@
+<view class="{{appFontClass}} set-page">
+  <view class="set-group">
+    <view class="set-gh">偏好设置</view>
+    <view class="set-row font-row">
+      <view class="set-body">
+        <view class="set-k">字体大小</view>
+        <view class="set-desc">调整后全站文字会同步适配</view>
+      </view>
+      <view class="font-picker">
+        <view
+          wx:for="{{fontOptions}}"
+          wx:key="id"
+          class="font-option {{fontSize === item.id ? 'active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="chooseFontSize"
+        >
+          <view class="font-label">{{item.label}}</view>
+          <view class="font-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="set-group">
+    <view class="set-gh">通用</view>
+    <view class="set-row" bindtap="clearCache">
+      <view class="set-body">
+        <view class="set-k">清除缓存</view>
+        <view class="set-desc">释放本地占用空间</view>
+      </view>
+      <icon name="chevron" size="28rpx" color="#8B7A6B"/>
+    </view>
+    <view class="set-row" bindtap="about">
+      <view class="set-body">
+        <view class="set-k">关于云上祁州</view>
+        <view class="set-desc">药都安国 · 康养万家</view>
+      </view>
+      <text class="set-v" catchtap="tapVersion">v{{version}}</text>
+    </view>
+  </view>
+
+  <view class="set-group" wx:if="{{traceAdminUnlocked}}">
+    <view class="set-gh">溯源管理</view>
+    <view class="set-row" bindtap="goTraceQr">
+      <view class="set-body">
+        <view class="set-k">溯源码生成中心</view>
+        <view class="set-desc">为商品生成对外可扫的溯源二维码</view>
+      </view>
+      <icon name="chevron" size="28rpx" color="#8B7A6B"/>
+    </view>
+    <view class="set-row" bindtap="lockTraceAdmin">
+      <view class="set-body">
+        <view class="set-k">锁定该入口</view>
+        <view class="set-desc">隐藏溯源管理，再次解锁需连点版本号 5 次</view>
+      </view>
+      <icon name="chevron" size="28rpx" color="#8B7A6B"/>
+    </view>
+  </view>
+
+  <view class="set-foot">
+    <image class="set-logo" src="/assets/brand/logo-cloud-jade.png" mode="aspectFit"/>
+    <view class="set-brand">云上祁州 · 康养万家</view>
+    <view class="set-tag">BENCAO SUOYUAN</view>
+  </view>
+</view>
+

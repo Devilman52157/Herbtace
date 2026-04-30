@@ -1,0 +1,120 @@
+<view class="{{appFontClass}} login-page">
+  <!-- ===== 氛围背景：渐变 + 旋转光晕 + 流云 + 极光 ===== -->
+  <view class="login-hero">
+    <view class="hero-glow"></view>
+    <view class="hero-clouds"></view>
+    <view class="hero-aurora"></view>
+    <view class="hero-deco">登</view>
+
+    <view class="hero-content">
+      <view class="hero-tag">壹 · 数字本草 · 道地溯源</view>
+      <view class="hero-title cn-brush">
+        <text class="title-char">云</text>
+        <text class="title-char">上</text>
+        <text class="title-char">祁</text>
+        <text class="title-char">州</text>
+      </view>
+      <view class="hero-sub">扫码 · 溯源 · VR 实景 · 本草君 AI</view>
+    </view>
+
+    <view class="hero-fade"></view>
+  </view>
+
+  <!-- ===== 表单卡片 ===== -->
+  <view class="login-card card-corner">
+    <view class="seal-mark">壹</view>
+
+    <view class="card-divider">
+      <view class="cd-line"></view>
+      <view class="cd-label">{{mode==='register' ? '注册新会员' : '用户登录'}}</view>
+      <view class="cd-line"></view>
+    </view>
+
+    <view class="mode-tabs">
+      <view
+        class="mode-tab {{mode==='login'?'active':''}}"
+        data-mode="login"
+        bindtap="switchMode"
+      >登录</view>
+      <view
+        class="mode-tab {{mode==='register'?'active':''}}"
+        data-mode="register"
+        bindtap="switchMode"
+      >注册</view>
+    </view>
+
+    <view class="form-field">
+      <view class="field-icon"><icon name="user" size="34rpx" color="#B5452A"/></view>
+      <input
+        class="field-input"
+        value="{{username}}"
+        placeholder="请输入用户名"
+        placeholder-class="field-placeholder"
+        bindinput="onUsernameInput"
+      />
+    </view>
+
+    <view class="form-field">
+      <view class="field-icon"><icon name="shield" size="34rpx" color="#B5452A"/></view>
+      <input
+        class="field-input"
+        value="{{password}}"
+        password
+        placeholder="请输入密码"
+        placeholder-class="field-placeholder"
+        bindinput="onPasswordInput"
+      />
+    </view>
+
+    <view class="form-field" wx:if="{{mode==='register'}}">
+      <view class="field-icon"><icon name="check" size="34rpx" color="#B5452A"/></view>
+      <input
+        class="field-input"
+        value="{{confirmPassword}}"
+        password
+        placeholder="请再次输入密码"
+        placeholder-class="field-placeholder"
+        bindinput="onConfirmInput"
+      />
+    </view>
+
+    <button
+      class="login-submit"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+      bindtap="handleAccountLogin"
+      hover-class="login-submit-hover"
+    >{{mode==='register' ? '注册并进入' : '进入云上祁州'}}</button>
+
+    <view class="divider-or">
+      <view class="dor-line"></view>
+      <text>或</text>
+      <view class="dor-line"></view>
+    </view>
+
+    <button
+      class="wechat-submit"
+      disabled="{{loading}}"
+      bindtap="handleWechatLogin"
+      hover-class="wechat-submit-hover"
+    >
+      <view class="wechat-submit-inner">
+        <view class="wechat-dot"></view>
+        <text>微信一键登录</text>
+      </view>
+    </button>
+
+    <view class="login-agreement" bindtap="toggleAccept">
+      <view class="agreement-check {{accepted?'checked':''}}">
+        <icon wx:if="{{accepted}}" name="check" size="22rpx" color="#FFFCF5"/>
+      </view>
+      <text>我已阅读并同意《用户协议》和《隐私政策》</text>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <view class="footer-line"></view>
+    <text>本草溯源 · 康养服务 · 会员权益</text>
+    <view class="footer-line"></view>
+  </view>
+</view>

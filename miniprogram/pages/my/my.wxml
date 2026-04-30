@@ -1,0 +1,66 @@
+<view class="{{appFontClass}} my-page">
+
+  <!-- Header：深色毛笔字 -->
+  <view class="my-header">
+    <image class="my-brand-mark" src="/assets/brand/logo-cloud-light.png" mode="aspectFit"/>
+    <view class="my-avatar">
+      <image wx:if="{{avatarUrl}}" class="my-avatar-img" src="{{avatarUrl}}" mode="aspectFill"/>
+      <icon wx:else name="user" size="56rpx" color="#E8D5B5"/>
+    </view>
+    <view class="my-name">{{displayName}}</view>
+    <view class="my-id">{{displayId}}</view>
+    <view wx:if="{{!isLoggedIn}}" class="my-login-chip" bindtap="goLogin" hover-class="hover-dim">
+      <icon name="user" size="26rpx" color="#E8D5B5"/>
+      <text>演示登录</text>
+    </view>
+    <view wx:else class="my-login-chip logged" bindtap="logout" hover-class="hover-dim">
+      <icon name="shield" size="26rpx" color="#E8D5B5"/>
+      <text>已登录</text>
+    </view>
+  </view>
+
+  <!-- 统计卡 -->
+  <view class="my-stats">
+    <view class="my-stat" bindtap="goCart" hover-class="hover-dim">
+      <view class="my-stat-num">{{cartCount}}</view>
+      <view class="my-stat-lbl">购物</view>
+    </view>
+    <view class="my-stat" bindtap="goOrders" hover-class="hover-dim">
+      <view class="my-stat-num">{{orderCount}}</view>
+      <view class="my-stat-lbl">订单</view>
+    </view>
+    <view class="my-stat" bindtap="goTraceHistory" hover-class="hover-dim">
+      <view class="my-stat-num">{{scanCount}}</view>
+      <view class="my-stat-lbl">溯源</view>
+    </view>
+    <view class="my-stat" bindtap="goPoints" hover-class="hover-dim">
+      <view class="my-stat-num">{{balance}}</view>
+      <view class="my-stat-lbl">积分</view>
+    </view>
+  </view>
+
+  <view class="my-coupon" bindtap="goCoupons" hover-class="hover-dim">
+    <view class="my-coupon-ic">
+      <icon name="ticket" size="42rpx" color="#B5452A"/>
+    </view>
+    <view class="my-coupon-body">
+      <view class="my-coupon-title">我的优惠券</view>
+      <view class="my-coupon-desc">{{couponDesc}}</view>
+    </view>
+    <view class="my-coupon-count">{{couponCount}}</view>
+    <view class="my-coupon-arrow"><icon name="chevron" size="26rpx" color="#8B7A6B"/></view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="my-menu">
+    <view class="my-menu-item" wx:for="{{menus}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="goMenu" hover-class="mi-hover">
+      <view class="mi-ic"><icon name="{{item.icon}}" size="36rpx" color="#5C4A3A"/></view>
+      <text class="my-menu-text">{{item.name}}</text>
+      <view class="my-menu-arrow"><icon name="chevron" size="28rpx" color="#8B7A6B"/></view>
+    </view>
+  </view>
+
+  <view class="page-bottom"></view>
+</view>
+

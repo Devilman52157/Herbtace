@@ -1,0 +1,132 @@
+.story-page {
+  min-height: 100vh;
+  background: #F8F2E8;
+  padding-bottom: 60rpx;
+}
+
+.story-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 420rpx;
+  padding: 58rpx 44rpx 48rpx;
+  background: linear-gradient(135deg, #2A1F14 0%, #8B3424 58%, #4A7C59 100%);
+  color: #FFE7A8;
+}
+.story-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 18%, rgba(255,231,168,0.18) 48%, transparent 78%);
+  opacity: 0.9;
+}
+.story-logo {
+  position: relative;
+  width: 120rpx;
+  height: 96rpx;
+  margin-bottom: 28rpx;
+  filter: drop-shadow(0 8rpx 20rpx rgba(0,0,0,0.22));
+}
+.story-kicker {
+  position: relative;
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border: 2rpx solid rgba(255,231,168,0.38);
+  border-radius: 999rpx;
+  font-size: calc(22rpx * var(--fs-scale, 1));
+  letter-spacing: 4rpx;
+}
+.story-title {
+  position: relative;
+  margin-top: 24rpx;
+  font-family: "Ma Shan Zheng","Kaiti SC","STKaiti","KaiTi","FangSong",serif;
+  font-size: calc(56rpx * var(--fs-scale, 1));
+  letter-spacing: 6rpx;
+}
+.story-sub {
+  position: relative;
+  margin-top: 14rpx;
+  max-width: 560rpx;
+  color: rgba(255,231,168,0.76);
+  font-size: calc(25rpx * var(--fs-scale, 1));
+  line-height: 1.7;
+  letter-spacing: 2rpx;
+}
+
+.story-values {
+  margin: -34rpx 40rpx 24rpx;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+}
+.story-value {
+  padding: 18rpx 0;
+  text-align: center;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 10rpx;
+  color: #B5452A;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 3rpx;
+}
+
+.story-list {
+  margin: 0 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.story-card {
+  display: flex;
+  gap: 22rpx;
+  padding: 26rpx;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 12rpx;
+}
+.story-card-ic {
+  width: 76rpx;
+  height: 76rpx;
+  flex: 0 0 76rpx;
+  border-radius: 18rpx;
+  background: #FBE8E4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.story-card-body { flex: 1; min-width: 0; }
+.story-card-title {
+  color: #2A1F14;
+  font-size: calc(30rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+.story-card-desc {
+  margin-top: 8rpx;
+  color: #8B7A6B;
+  font-size: calc(23rpx * var(--fs-scale, 1));
+  line-height: 1.6;
+  letter-spacing: 1rpx;
+}
+
+.story-note {
+  margin: 28rpx 40rpx 0;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #FFFCF5 0%, #EAF3EC 100%);
+  border: 2rpx solid #C8DCC8;
+  border-radius: 12rpx;
+}
+.story-note-title {
+  color: #2C4A35;
+  font-size: calc(30rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+.story-note-text {
+  margin-top: 10rpx;
+  color: #5C4A3A;
+  font-size: calc(23rpx * var(--fs-scale, 1));
+  line-height: 1.7;
+  letter-spacing: 1rpx;
+}

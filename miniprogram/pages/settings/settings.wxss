@@ -1,0 +1,80 @@
+/* ============  ============ */
+.set-page { background: #F8F2E8; min-height: 100vh; padding: 24rpx 0 60rpx; }
+
+.set-group {
+  margin: 0 40rpx 24rpx;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  overflow: hidden;
+}
+.set-gh {
+  padding: 20rpx 28rpx 12rpx;
+  font-size: calc(22rpx * var(--fs-scale, 1)); color: #B5452A;
+  letter-spacing: 4rpx; font-weight: 700;
+  background: rgba(181,69,42,0.04);
+  border-bottom: 2rpx solid rgba(196,147,90,0.2);
+}
+.set-row {
+  display: flex; align-items: center; gap: 20rpx;
+  padding: 28rpx;
+  border-bottom: 2rpx dashed rgba(196,147,90,0.15);
+}
+.set-row:last-child { border-bottom: none; }
+.set-body { flex: 1; min-width: 0; }
+.set-k { font-size: calc(28rpx * var(--fs-scale, 1)); color: #2A1F14; letter-spacing: 1rpx; }
+.set-desc { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; margin-top: 6rpx; letter-spacing: 1rpx; }
+.set-v { font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 1rpx; padding: 8rpx 4rpx; }
+
+.font-row {
+  align-items: flex-start;
+  flex-direction: column;
+}
+.font-picker {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+}
+.font-option {
+  min-height: 72rpx;
+  padding: 10rpx 8rpx;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 10rpx;
+  background: #FFFFFF;
+  color: #5C4A3A;
+  text-align: center;
+}
+.font-option.active {
+  border-color: #B5452A;
+  background: rgba(181,69,42,0.06);
+  color: #B5452A;
+}
+.font-label {
+  font-size: calc(26rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  line-height: 1.2;
+}
+.font-desc {
+  margin-top: 4rpx;
+  font-size: calc(18rpx * var(--fs-scale, 1));
+  color: #8B7A6B;
+  line-height: 1.2;
+}
+.font-option.active .font-desc { color: #B5452A; }
+
+.set-foot {
+  margin-top: 60rpx; text-align: center;
+}
+.set-logo {
+  display: block;
+  width: 112rpx; height: 96rpx;
+  margin: 0 auto 12rpx;
+  opacity: 0.72;
+}
+.set-brand {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(32rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 6rpx;
+}
+.set-tag {
+  font-size: calc(18rpx * var(--fs-scale, 1)); color: #C4935A;
+  letter-spacing: 6rpx; margin-top: 8rpx; opacity: 0.7;
+}

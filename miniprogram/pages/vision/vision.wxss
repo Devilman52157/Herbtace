@@ -1,0 +1,211 @@
+/* ============ 视觉辨证 · 全屏取景版 ============ */
+.vision-page { background: #0D0D0D; min-height: 100vh; }
+
+/* ===== 取景态 ===== */
+.cam-stage {
+  position: fixed; inset: 0; background: #000;
+  display: flex; align-items: center; justify-content: center;
+}
+.cam-feed { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* 取景框：四角装饰 */
+.cam-guide {
+  position: absolute; bottom: 22%; left: 0; right: 0;
+  text-align: center; font-size: calc(24rpx * var(--fs-scale, 1));
+  color: #FFFFFF; letter-spacing: 3rpx;
+  text-shadow: 0 2rpx 12rpx rgba(0,0,0,0.7);
+  z-index: 4;
+}
+
+/* 顶部 */
+.cam-top {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 32rpx 40rpx; display: flex; align-items: center;
+  justify-content: space-between; z-index: 5;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+}
+.cam-title {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(40rpx * var(--fs-scale, 1));
+  color: #FFFFFF; letter-spacing: 6rpx;
+  flex: 1; text-align: center; padding-left: 70rpx;
+}
+.cam-switch {
+  width: 70rpx; height: 70rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  box-sizing: border-box;
+}
+
+/* 底部 */
+.cam-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 60rpx 60rpx calc(60rpx + env(safe-area-inset-bottom));
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 5;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+.cam-gallery, .cam-spacer {
+  width: 88rpx; height: 88rpx; border-radius: 16rpx;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  color: #FFFFFF; font-size: calc(22rpx * var(--fs-scale, 1));
+  letter-spacing: 2rpx;
+  box-sizing: border-box;
+}
+.cam-spacer { background: transparent; }
+.cam-switch-icon {
+  width: 42rpx; height: 42rpx;
+}
+.cam-gallery-icon {
+  width: 50rpx; height: 50rpx;
+}
+.cam-shutter {
+  width: 140rpx; height: 140rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 6rpx solid #FFFFFF;
+  display: flex; align-items: center; justify-content: center;
+}
+.cam-shutter-in {
+  width: 110rpx; height: 110rpx; border-radius: 50%;
+  background: #FFFFFF;
+}
+.cam-shutter:active .cam-shutter-in { background: #DDDDDD; transform: scale(0.94); }
+
+/* 错误兜底 */
+.cam-err {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.85); color: #FFFFFF; padding: 60rpx; text-align: center;
+}
+.cam-err-t { font-size: calc(32rpx * var(--fs-scale, 1)); margin-bottom: 16rpx; letter-spacing: 4rpx; }
+.cam-err-d { font-size: calc(24rpx * var(--fs-scale, 1)); color: #BBBBBB; line-height: 1.6; }
+
+/* ===== 预览态 ===== */
+.preview-stage {
+  position: fixed; inset: 0; background: #0D0D0D;
+  display: flex; flex-direction: column;
+  padding: 80rpx 40rpx calc(60rpx + env(safe-area-inset-bottom));
+}
+.preview-img {
+  flex: 1; width: 100%; min-height: 0;
+  border-radius: 16rpx;
+}
+.preview-bar {
+  display: flex; gap: 24rpx; justify-content: center;
+  margin-top: 40rpx;
+}
+
+/* ===== 通用按钮 ===== */
+.btn-primary, .btn-ghost {
+  font-size: calc(26rpx * var(--fs-scale, 1));
+  padding: 0 48rpx; height: 84rpx; line-height: 84rpx;
+  border-radius: 8rpx; letter-spacing: 3rpx;
+}
+.btn-primary { background: #B5452A; color: #E8D5B5; font-weight: 700; flex: 1; }
+.btn-ghost {
+  background: transparent; color: #FFFFFF;
+  border: 2rpx solid rgba(255,255,255,0.6); font-weight: 700;
+}
+.btn-primary::after, .btn-ghost::after { border: none; }
+.btn-primary[disabled] { opacity: 0.6; background: #B5452A; color: #E8D5B5; }
+
+/* ===== 报告态（恢复浅色背景） ===== */
+.result-scroll {
+  background: #F8F2E8; min-height: 100vh;
+  padding: 32rpx 40rpx calc(60rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.header { text-align: center; margin-bottom: 32rpx; }
+.title {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(44rpx * var(--fs-scale, 1));
+  letter-spacing: 8rpx; color: #2A1F14;
+}
+
+.report {
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5; border-radius: 12rpx; padding: 32rpx;
+  position: relative;
+}
+.report::before, .report::after {
+  content: ''; position: absolute; width: 16rpx; height: 16rpx;
+  border-color: #C4935A; border-style: solid;
+}
+.report::before { top: -2rpx; left: -2rpx; border-width: 3rpx 0 0 3rpx; }
+.report::after  { bottom: -2rpx; right: -2rpx; border-width: 0 3rpx 3rpx 0; }
+
+.rep-title {
+  font-size: calc(28rpx * var(--fs-scale, 1)); font-weight: 700; color: #B5452A;
+  letter-spacing: 4rpx; margin-bottom: 20rpx;
+}
+.fb { font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; font-weight: 400; margin-left: 8rpx; }
+
+.rep-const { margin-bottom: 12rpx; display: flex; align-items: baseline; flex-wrap: wrap; gap: 12rpx; }
+.const-main {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(56rpx * var(--fs-scale, 1)); color: #B5452A; letter-spacing: 4rpx;
+}
+.const-sub { font-size: calc(24rpx * var(--fs-scale, 1)); color: #5C4A3A; }
+.const-conf {
+  margin-left: auto; font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  padding: 4rpx 12rpx; background: rgba(74,124,89,0.08); border-radius: 4rpx;
+}
+
+.rep-summary {
+  font-size: calc(26rpx * var(--fs-scale, 1)); color: #5C4A3A; line-height: 1.8;
+  margin-bottom: 24rpx; letter-spacing: 1rpx;
+}
+
+.rep-section { margin-top: 28rpx; }
+.sec-title {
+  font-size: calc(24rpx * var(--fs-scale, 1)); color: #2A1F14; font-weight: 700; letter-spacing: 3rpx;
+  margin-bottom: 16rpx; padding-left: 16rpx; border-left: 6rpx solid #B5452A;
+}
+
+.score-row { display: flex; align-items: center; gap: 16rpx; margin-bottom: 14rpx; }
+.sk { width: 88rpx; font-size: calc(22rpx * var(--fs-scale, 1)); color: #5C4A3A; }
+.sbar { flex: 1; height: 12rpx; background: #EDE4D4; border-radius: 6rpx; overflow: hidden; }
+.sfill { height: 100%; border-radius: 6rpx; transition: width 0.4s; }
+.sv { width: 60rpx; text-align: right; font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B; }
+
+.traits { display: flex; flex-wrap: wrap; gap: 12rpx; }
+.trait {
+  font-size: calc(22rpx * var(--fs-scale, 1)); padding: 6rpx 20rpx; border-radius: 999rpx;
+  background: rgba(74,124,89,0.08); color: #4A7C59;
+  border: 2rpx solid rgba(74,124,89,0.3);
+}
+
+.rep-blessing {
+  margin-top: 24rpx; padding: 24rpx;
+  background: rgba(196,147,90,0.1); color: #5C4A3A;
+  border-left: 6rpx solid #C4935A; border-radius: 8rpx;
+  font-size: calc(24rpx * var(--fs-scale, 1)); line-height: 1.8; letter-spacing: 1rpx;
+}
+
+.rec {
+  padding: 20rpx; border-radius: 8rpx;
+  background: rgba(181,69,42,0.05);
+  border: 2rpx solid rgba(181,69,42,0.15);
+  margin-bottom: 16rpx;
+}
+.rec-name { font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; }
+.rec-match { font-size: calc(20rpx * var(--fs-scale, 1)); color: #4A7C59; margin-left: 12rpx; font-weight: 400; }
+.rec-desc { font-size: calc(22rpx * var(--fs-scale, 1)); color: #5C4A3A; margin-top: 6rpx; line-height: 1.6; }
+.rec-price { font-size: calc(28rpx * var(--fs-scale, 1)); color: #B5452A; font-weight: 700; margin-top: 8rpx; }
+
+.herb-name {
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(52rpx * var(--fs-scale, 1)); color: #2A1F14; letter-spacing: 4rpx;
+}
+.herb-conf { font-size: calc(22rpx * var(--fs-scale, 1)); color: #4A7C59; margin-left: 16rpx; font-family: inherit; }
+.herb-latin { font-style: italic; color: #8B7A6B; font-size: calc(22rpx * var(--fs-scale, 1)); margin-top: 6rpx; letter-spacing: 2rpx; }
+.herb-row { font-size: calc(26rpx * var(--fs-scale, 1)); color: #5C4A3A; margin-top: 18rpx; line-height: 1.7; }
+.herb-row .k { color: #B5452A; font-weight: 700; letter-spacing: 1rpx; }
+
+.result-actions {
+  display: flex; gap: 24rpx; margin-top: 40rpx; padding: 0 0 40rpx;
+}
+.result-actions .btn-ghost {
+  color: #B5452A; border-color: #B5452A; flex: 1;
+}

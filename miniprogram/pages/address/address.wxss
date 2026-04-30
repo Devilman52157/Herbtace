@@ -1,0 +1,68 @@
+/* ============ ջַ ============ */
+.addr-page { background: #F8F2E8; min-height: 100vh; padding: 24rpx 0 60rpx; }
+
+.addr-list { padding: 0 40rpx; display: flex; flex-direction: column; gap: 16rpx; }
+.addr-card {
+  position: relative;
+  background: #FFFCF5; border: 2rpx solid #E8D5B5; border-radius: 12rpx;
+  padding: 28rpx;
+}
+.addr-head { display: flex; gap: 20rpx; align-items: baseline; }
+.addr-name {
+  font-size: calc(28rpx * var(--fs-scale, 1)); font-weight: 700; color: #2A1F14; letter-spacing: 2rpx;
+}
+.addr-phone { font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B; letter-spacing: 1rpx; }
+.addr-detail {
+  font-size: calc(24rpx * var(--fs-scale, 1)); color: #5C4A3A;
+  margin-top: 12rpx; padding-right: 48rpx; line-height: 1.7;
+}
+.addr-del {
+  position: absolute; top: 20rpx; right: 20rpx;
+  width: 48rpx; height: 48rpx; border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.addr-add {
+  margin: 24rpx 40rpx 0;
+  padding: 28rpx;
+  border: 2rpx dashed #C4935A; color: #B5452A;
+  background: rgba(196,147,90,0.04);
+  border-radius: 12rpx;
+  display: flex; align-items: center; justify-content: center; gap: 10rpx;
+  font-size: calc(26rpx * var(--fs-scale, 1)); letter-spacing: 3rpx; font-weight: 700;
+}
+
+.mask { position: fixed; inset: 0; background: rgba(42,31,20,0.7); z-index: 199; }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+  background: #F8F2E8; border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
+  animation: slideUp 0.3s ease;
+}
+.sh-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 20rpx; margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #E8D5B5;
+  font-family: 'Ma Shan Zheng','STKaiti','KaiTi',serif;
+  font-size: calc(34rpx * var(--fs-scale, 1)); letter-spacing: 3rpx; color: #2A1F14;
+}
+.fm-row { padding: 16rpx 0; }
+.fm-k {
+  display: block; font-size: calc(22rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  letter-spacing: 2rpx; margin-bottom: 10rpx;
+}
+.fm-in {
+  width: 100%; padding: 18rpx 20rpx;
+  min-height: calc(60rpx * var(--fs-scale, 1)); line-height: 1.5;
+  box-sizing: border-box;
+  border: 2rpx solid #E8D5B5; border-radius: 8rpx;
+  background: #FFFCF5; font-size: calc(26rpx * var(--fs-scale, 1)); color: #2A1F14;
+}
+.fm-in-ph { font-size: calc(26rpx * var(--fs-scale, 1)); color: #B5A595; }
+.fm-save {
+  margin-top: 32rpx; padding: 24rpx;
+  background: #B5452A; color: #FFF;
+  border-radius: 8rpx; text-align: center;
+  font-size: calc(26rpx * var(--fs-scale, 1)); font-weight: 700; letter-spacing: 6rpx;
+}

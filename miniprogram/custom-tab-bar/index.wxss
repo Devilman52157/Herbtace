@@ -1,0 +1,22 @@
+.tab-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 500;
+  display: flex;
+  background: rgba(255,252,245,0.96);
+  backdrop-filter: blur(10px);
+  border-top: 2rpx solid #E8D5B5;
+  padding: 12rpx 0 calc(12rpx + env(safe-area-inset-bottom));
+}
+.tab-item {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 4rpx;
+  padding: 10rpx 0;
+}
+.tab-ic { display: flex; align-items: center; justify-content: center; }
+.tab-label {
+  font-size: calc(20rpx * var(--fs-scale, 1)); color: #8B7A6B;
+  letter-spacing: 3rpx;
+  font-family: 'Ma Shan Zheng','Kaiti SC','STKaiti','KaiTi','FangSong','LXGW WenKai','Songti SC',serif;
+}
+.tab-item.active .tab-label {
+  color: #B5452A; font-weight: 400;
+}

@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gcloud --version)",
+      "Bash(grep -v \":0$\")",
+      "Bash(node scripts/scale-font-sizes.js)",
+      "PowerShell(node D:/Desktop/Wexin/scripts/scale-font-sizes.js)",
+      "PowerShell([System.Text.Encoding]::Default.WebName; [System.Text.Encoding]::Default.CodePage; chcp)",
+      "PowerShell($f = 'D:\\\\Desktop\\\\Wexin\\\\miniprogram\\\\pages\\\\gift-diy\\\\gift-diy.wxss'; $bytes = [System.IO.File]::ReadAllBytes\\($f\\); $text = [System.Text.Encoding]::UTF8.GetString\\($bytes\\); $lines = $text -split \"`n\"; for \\($i = 109; $i -le 113; $i++\\) { $l = $lines[$i]; $hex = \\($l.ToCharArray\\(\\) | ForEach-Object { '{0:X4}' -f [int][char]$_ }\\) -join ' '; Write-Output \"L$\\($i+1\\): $l\"; if \\($i -eq 111\\) { Write-Output \"HEX:  $hex\" } })",
+      "PowerShell($f = 'D:\\\\Desktop\\\\Wexin\\\\miniprogram\\\\pages\\\\gift-diy\\\\gift-diy.wxss'; $text = [System.IO.File]::ReadAllText\\($f, [System.Text.Encoding]::UTF8\\); $singleQuotes = \\([regex]::Matches\\($text, \"'\"\\)\\).Count; $doubleQuotes = \\([regex]::Matches\\($text, '\"'\\)\\).Count; Write-Output \"single quotes: $singleQuotes \\(parity: $\\($singleQuotes % 2\\)\\)\"; Write-Output \"double quotes: $doubleQuotes \\(parity: $\\($doubleQuotes % 2\\)\\)\")",
+      "Bash(git -C D:/Desktop/Wexin status --short)",
+      "Bash(git -C D:/Desktop/Wexin branch --show-current)",
+      "Bash(git -C D:/Desktop/Wexin log --oneline -5)",
+      "Bash(git -C D:/Desktop/Wexin remote -v)",
+      "Bash(git -C D:/Desktop/Wexin ls-tree --name-only HEAD)",
+      "Bash(git -C D:/Desktop/Wexin log --all --oneline -10)",
+      "Bash(git -C D:/Desktop/Wexin log --all --oneline --decorate -5)",
+      "Bash(git -C D:/Desktop/Wexin status)",
+      "Bash(git -C D:/Desktop/Wexin ls-tree --name-only origin/main)",
+      "Bash(git -C D:/Desktop/Wexin ls-tree origin/main miniprogram/)",
+      "Bash(xargs wc *)",
+      "Bash(grep -n \"healthz\\\\|app.get\\\\|app\\\\\\\\.use\\\\|app.post\" /d/Desktop/Wexin/miniprogram/server/index.js)",
+      "Bash(python -c \"from PIL import Image; print\\('PIL OK'\\)\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL OK'\\)\")",
+      "Read(//d/d/Desktop/Wexin/miniprogram/assets/**)",
+      "Bash(rm -f image*.jpeg 18.jpeg 16.jpeg 17.jpeg 44.jpeg)"
+    ]
+  }
+}

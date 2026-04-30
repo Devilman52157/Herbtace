@@ -1,0 +1,77 @@
+<view class="{{appFontClass}} page-gift">
+  <view class="diy-hero">
+    <view class="diy-tag">礼盒 · 私人订制</view>
+    <view class="diy-title">本草雅礼</view>
+    <view class="gf-steps">
+      <text class="stp {{step>=1?'on':''}}">壹·盒</text>
+      <text class="dash"></text>
+      <text class="stp {{step>=2?'on':''}}">贰·配</text>
+      <text class="dash"></text>
+      <text class="stp {{step>=3?'on':''}}">叁·贺</text>
+    </view>
+  </view>
+
+  <!-- 步骤 1：盒 -->
+  <block wx:if="{{step===1}}">
+    <view class="diy-step-title">
+      <view class="diy-step-n"></view>
+      <text>选择礼盒规格</text>
+    </view>
+    <view class="box-list">
+      <view class="box-card {{pickedBox.id===item.id?'picked':''}}"
+            wx:for="{{boxes}}" wx:key="id"
+            data-id="{{item.id}}" bindtap="pickBox">
+        <view class="bc-ic"><icon name="giftbox" size="56rpx" color="#B5452A"/></view>
+        <view class="bc-name">{{item.name}}</view>
+        <view class="bc-price">¥{{item.price}}</view>
+        <view class="bc-cap">可装 {{item.cap}} 件</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 步骤 2：药 -->
+  <block wx:if="{{step===2}}">
+    <view class="diy-step-title">
+      <view class="diy-step-n"></view>
+      <text>挑心意药</text>
+      <view class="diy-count">已选 <text class="diy-count-num">{{pickedIds.length}}</text> / {{pickedBox.cap}}</view>
+    </view>
+    <view class="pick-tip">点击药材加入礼盒</view>
+    <view class="prod-grid">
+      <view class="prod-card {{item.picked?'picked':''}}"
+            wx:for="{{products}}" wx:key="id"
+            data-id="{{item.id}}" bindtap="toggle">
+        <view class="pd-ic">
+          <image wx:if="{{item.image}}" class="pd-img" src="{{item.image}}" mode="aspectFill"/>
+          <icon wx:else name="{{item.cat==='easy'?'tea':'sprout'}}" size="44rpx" color="#B5452A"/>
+        </view>
+        <view class="pd-name">{{item.name}}</view>
+        <view class="pd-price">¥{{item.price}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 步骤 3：贺卡 -->
+  <block wx:if="{{step===3}}">
+    <view class="diy-step-title">
+      <view class="diy-step-n"></view>
+      <text>书写心意贺卡</text>
+    </view>
+    <view class="card-box">
+      <view class="card-deco">敬呈</view>
+      <textarea class="card-in" placeholder="写一段心意寄语..." maxlength="80" value="{{card}}" bindinput="onCard"/>
+    </view>
+    <view class="sum">
+      <view class="sum-row"><text>礼盒</text><text>{{pickedBox.name}}</text></view>
+      <view class="sum-row"><text>入盒药材</text><text>{{pickedIds.length}} 件</text></view>
+      <view class="sum-row"><text class="k">合计</text><text class="price">¥{{pickedBox.price}}+</text></view>
+    </view>
+  </block>
+
+  <view class="foot-bar">
+    <view class="fb-btn ghost" wx:if="{{step>1}}" bindtap="prev">上一步</view>
+    <view class="fb-btn" wx:if="{{step<3}}" bindtap="next">下一步</view>
+    <view class="fb-btn" wx:if="{{step===3}}" bindtap="submit">确认下单</view>
+  </view>
+</view>
+

@@ -1,0 +1,208 @@
+.coupon-page {
+  min-height: 100vh;
+  background: #F8F2E8;
+  padding-bottom: 60rpx;
+}
+
+.coupon-hero {
+  margin: 28rpx 40rpx 0;
+  padding: 34rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #8B3424 0%, #B5452A 58%, #C4935A 100%);
+  color: #FFE7A8;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  box-shadow: 0 10rpx 28rpx rgba(181,69,42,0.22);
+}
+.coupon-hero-left { flex: 1; min-width: 0; }
+.coupon-kicker {
+  font-size: calc(18rpx * var(--fs-scale, 1));
+  letter-spacing: 4rpx;
+  opacity: 0.75;
+}
+.coupon-title {
+  margin-top: 10rpx;
+  font-family: "Ma Shan Zheng","Kaiti SC","STKaiti","KaiTi","FangSong",serif;
+  font-size: calc(46rpx * var(--fs-scale, 1));
+  letter-spacing: 5rpx;
+}
+.coupon-sub {
+  margin-top: 10rpx;
+  color: rgba(255,231,168,0.78);
+  font-size: calc(22rpx * var(--fs-scale, 1));
+  line-height: 1.55;
+  letter-spacing: 1rpx;
+}
+.coupon-hero-ic {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 28rpx;
+  background: rgba(255,255,255,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon-summary {
+  margin: 22rpx 40rpx 0;
+  padding: 22rpx;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 14rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 16rpx;
+  align-items: center;
+}
+.coupon-summary-item {
+  text-align: center;
+  border-right: 2rpx solid rgba(196,147,90,0.16);
+}
+.coupon-summary-num {
+  color: #B5452A;
+  font-size: calc(34rpx * var(--fs-scale, 1));
+  font-weight: 900;
+}
+.coupon-summary-label {
+  color: #8B7A6B;
+  font-size: calc(19rpx * var(--fs-scale, 1));
+  margin-top: 4rpx;
+}
+.coupon-summary-btn {
+  height: 68rpx;
+  border-radius: 10rpx;
+  background: #B5452A;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(23rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.coupon-tabs {
+  margin: 26rpx 40rpx 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+.coupon-tab {
+  height: 64rpx;
+  border-radius: 999rpx;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  color: #8B7A6B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  letter-spacing: 2rpx;
+}
+.coupon-tab.active {
+  background: #4A7C59;
+  border-color: #4A7C59;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.coupon-list {
+  margin: 24rpx 40rpx 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.coupon-card {
+  position: relative;
+  overflow: hidden;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 16rpx;
+}
+.coupon-card.used {
+  opacity: 0.58;
+  filter: grayscale(0.25);
+}
+.coupon-card-main {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+  padding: 28rpx;
+}
+.coupon-money {
+  width: 132rpx;
+  flex: 0 0 132rpx;
+  color: #B5452A;
+  font-size: calc(56rpx * var(--fs-scale, 1));
+  font-weight: 900;
+  line-height: 1;
+}
+.coupon-yen {
+  font-size: calc(26rpx * var(--fs-scale, 1));
+  margin-right: 2rpx;
+}
+.coupon-info { flex: 1; min-width: 0; }
+.coupon-card-title {
+  color: #2A1F14;
+  font-size: calc(30rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 1rpx;
+}
+.coupon-card-desc,
+.coupon-card-time,
+.coupon-rule {
+  color: #8B7A6B;
+  font-size: calc(21rpx * var(--fs-scale, 1));
+  line-height: 1.5;
+  margin-top: 6rpx;
+}
+.coupon-status {
+  padding: 6rpx 12rpx;
+  border-radius: 999rpx;
+  background: #FBE8E4;
+  color: #B5452A;
+  font-size: calc(19rpx * var(--fs-scale, 1));
+  white-space: nowrap;
+}
+.coupon-rule {
+  margin: 0;
+  padding: 18rpx 28rpx;
+  border-top: 2rpx dashed rgba(196,147,90,0.24);
+}
+.coupon-use {
+  margin: 0 28rpx 24rpx;
+  height: 64rpx;
+  border-radius: 8rpx;
+  background: #4A7C59;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.coupon-empty {
+  margin: 60rpx 40rpx 0;
+  padding: 60rpx 30rpx;
+  background: #FFFCF5;
+  border: 2rpx solid #E8D5B5;
+  border-radius: 14rpx;
+  text-align: center;
+}
+.coupon-empty-title {
+  margin-top: 18rpx;
+  color: #2A1F14;
+  font-size: calc(28rpx * var(--fs-scale, 1));
+  font-weight: 700;
+}
+.coupon-empty-sub {
+  margin-top: 8rpx;
+  color: #8B7A6B;
+  font-size: calc(22rpx * var(--fs-scale, 1));
+}
+
+.hover-dim { opacity: 0.85; }
+.page-bottom { height: 40rpx; }

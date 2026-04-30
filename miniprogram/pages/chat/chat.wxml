@@ -1,0 +1,110 @@
+<view class="{{appFontClass}} chat-page">
+  <!-- 消息?-->
+  <scroll-view class="chat-msgs" scroll-y scroll-top="{{scrollTop}}" scroll-with-animation>
+    <view wx:for="{{messages}}" wx:key="index"
+          class="chat-row {{item.role==='user'?'user':'bot'}}">
+      <view class="chat-bubble {{item.role==='user'?'user':'bot'}}">{{item.content}}</view>
+    </view>
+    <view wx:if="{{sending}}" class="chat-row bot">
+      <view class="chat-bubble bot typing">
+        <view class="dots"><view/><view/><view/></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 快捷问题条（含体质评测入口） -->
+  <scroll-view scroll-x class="quick-qs" enhanced show-scrollbar="{{false}}">
+    <view class="quick-inner">
+      <view class="quiz-entry-btn" bindtap="openQuiz">
+        <icon name="checkbox" size="24rpx" color="#B5452A"/>
+        <text>体质评测</text>
+      </view>
+      <view wx:if="{{!quickHidden}}" class="qq-btn" data-q="我经常失眠该怎么调理？" bindtap="onQuickAsk">失眠调理</view>
+      <view wx:if="{{!quickHidden}}" class="qq-btn" data-q="枸杞有什么功效？适合什么体质？" bindtap="onQuickAsk">枸杞功效</view>
+      <view wx:if="{{!quickHidden}}" class="qq-btn" data-q="推荐适合办公族的养生茶" bindtap="onQuickAsk">办公族养生</view>
+      <view wx:if="{{!quickHidden}}" class="qq-btn" data-q="艾草有什么作用？" bindtap="onQuickAsk">艾草作用</view>
+      <view wx:if="{{!quickHidden}}" class="qq-btn" data-q="春季适合喝什么茶？" bindtap="onQuickAsk">春季饮茶</view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入栏 -->
+  <view class="chat-bar">
+    <view class="chat-bar-row">
+      <view class="chat-cam" bindtap="openCamSheet"><icon name="scan" size="36rpx" color="#E8D5B5"/></view>
+      <input class="chat-input" placeholder-class="chat-input-ph" value="{{input}}" bindinput="onInput"
+             placeholder="输入您的健康问题..."
+             confirm-type="send" bindconfirm="onSend"/>
+      <view class="chat-send {{sending?'disabled':''}}" bindtap="onSend">发送</view>
+    </view>
+    <view class="chat-disclaimer">⚠️ AI建议仅供参考，不构成医疗诊断，如有不适请及时就医</view>
+  </view>
+
+  <!-- 拍照问诊面板 cam-sheet -->
+  <view class="cam-sheet {{camSheetOpen?'show':''}}" bindtap="closeCamSheet" catchtouchmove="noop">
+    <view class="cam-sheet-inner" catchtap="noop">
+      <view class="cam-handle"></view>
+      <view class="cam-title">望 · 闻</view>
+      <view class="cam-subt">中医四诊之首 · 观舌察面以知脏腑</view>
+      <view class="cam-opts">
+        <view class="cam-opt" data-mode="tongue" bindtap="goVision">
+          <view class="cam-opt-ic"><icon name="medical" size="40rpx" color="#E8D5B5"/></view>
+          <view class="cam-opt-body">
+            <view class="cam-opt-t">拍摄舌苔</view>
+            <view class="cam-opt-d">伸舌自然外吐，光线充足，避免饭后</view>
+          </view>
+          <icon class="cam-opt-arr" name="chevron" size="28rpx" color="#8B7A6B"/>
+        </view>
+        <view class="cam-opt" data-mode="face" bindtap="goVision">
+          <view class="cam-opt-ic"><icon name="user" size="40rpx" color="#E8D5B5"/></view>
+          <view class="cam-opt-body">
+            <view class="cam-opt-t">拍摄面色</view>
+            <view class="cam-opt-d">正面五官，自然光下最佳</view>
+          </view>
+          <icon class="cam-opt-arr" name="chevron" size="28rpx" color="#8B7A6B"/>
+        </view>
+        <view class="cam-opt" data-mode="herb" bindtap="goVision">
+          <view class="cam-opt-ic"><icon name="doc" size="40rpx" color="#E8D5B5"/></view>
+          <view class="cam-opt-body">
+            <view class="cam-opt-t">从相册选择</view>
+            <view class="cam-opt-d">选用已有照片进行分析</view>
+          </view>
+          <icon class="cam-opt-arr" name="chevron" size="28rpx" color="#8B7A6B"/>
+        </view>
+      </view>
+      <view class="cam-tip">
+        <icon name="clipboard" size="28rpx" color="#8B7A6B"/>
+        <text>本草君的望诊基于中医经典图谱与临床样本训练，结果仅供调理参考，不构成医疗诊断</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 体质评测弹窗 quiz-overlay -->
+  <view class="quiz-overlay {{quizOpen?'show':''}}" bindtap="closeQuiz" catchtouchmove="noop">
+    <view class="quiz-card" catchtap="noop">
+      <view class="quiz-head">
+        <view class="quiz-close" bindtap="closeQuiz">×</view>
+        <view class="quiz-htag">中医体质辨识</view>
+        <view class="quiz-htitle">九型体质评测</view>
+        <view class="quiz-hsub">5题 · 约1分钟 · AI个性化分析</view>
+        <view class="quiz-prog-wrap"><view class="quiz-prog-bar" style="width:{{(quizIdx+1)/quizTotal*100}}%"></view></view>
+        <view class="quiz-step">第 {{quizIdx+1}} 题 / 共 {{quizTotal}} 题</view>
+      </view>
+      <scroll-view class="quiz-body" scroll-y>
+        <view class="quiz-q">{{quizCur.q}}</view>
+        <view class="quiz-opts">
+          <view wx:for="{{quizCur.opts}}" wx:key="*this" wx:for-item="o" wx:for-index="i"
+                class="quiz-opt {{quizAns[quizIdx]===i?'selected':''}}"
+                data-i="{{i}}" bindtap="selectOpt">
+            <view class="quiz-opt-tag">{{tags[i]}}</view>
+            <view class="quiz-opt-text">{{o}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="quiz-foot">
+        <view class="quiz-btn ghost {{quizIdx===0?'disabled':''}}" bindtap="quizPrev">上一题</view>
+        <view class="quiz-btn primary" bindtap="quizNext">{{quizIdx===quizTotal-1?'提交分析':'下一题'}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+

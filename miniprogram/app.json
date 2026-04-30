@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/brand-story/brand-story",
+    "pages/shop/shop",
+    "pages/expert/expert",
+    "pages/my/my",
+    "pages/coupons/coupons",
+    "pages/detail/detail",
+    "pages/trace/trace",
+    "pages/vr-tour/vr-tour",
+    "pages/chat/chat",
+    "pages/expert-chat/expert-chat",
+    "pages/vision/vision",
+    "pages/atlas/atlas",
+    "pages/origin-map/origin-map",
+    "pages/points/points",
+    "pages/study/study",
+    "pages/gift-diy/gift-diy",
+    "pages/jieqi-detail/jieqi-detail",
+    "pages/orders/orders",
+    "pages/cart/cart",
+    "pages/address/address",
+    "pages/favs/favs",
+    "pages/settings/settings",
+    "pages/trace-history/trace-history",
+    "pages/chat-history/chat-history",
+    "pages/trace-qr/trace-qr"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F8F2E8",
+    "navigationBarTitleText": "云上祁州",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8F2E8"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8B7A6B",
+    "selectedColor": "#B5452A",
+    "backgroundColor": "#FFFCF5",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index",   "text": "首页" },
+      { "pagePath": "pages/shop/shop",     "text": "商城" },
+      { "pagePath": "pages/expert/expert", "text": "问诊" },
+      { "pagePath": "pages/my/my",         "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": { "desc": "用于查看产地地图" }
+  }
+}

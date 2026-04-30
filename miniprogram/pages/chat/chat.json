@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "AI养生助手",
+  "navigationBarBackgroundColor": "#F8F2E8",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "icon": "/components/icon/icon"
+  }
+}
