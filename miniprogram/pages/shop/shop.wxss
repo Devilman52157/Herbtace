@@ -110,7 +110,7 @@
 }
 .shop-item-img {
   position: relative;
-  height: 240rpx; background: #EDE4D4;
+  height: 325rpx; background: #FFFCF5;
   border-bottom: 2rpx solid #E8D5B5;
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;

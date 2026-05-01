@@ -2,7 +2,9 @@
   <view class="trace-hero">
     <view class="trace-inner">
       <view class="tic">
-        <image wx:if="{{product.image}}" class="tic-img" src="{{product.image}}" mode="aspectFill"/>
+        <image wx:if="{{product.thumb || product.image}}" class="tic-img"
+               src="{{product.thumb ? product.thumb : product.image}}"
+               mode="aspectFit"/>
         <icon wx:else name="{{product.cat==='easy'?'tea':product.cat==='home'?'sprout':'gift'}}" size="80rpx" color="#E8D5B5"/>
       </view>
       <view class="tname">{{product.name}}</view>

@@ -13,7 +13,10 @@
     <view class="fav-grid">
       <view class="fav-card" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="go">
         <view class="fav-thumb">
-          <image wx:if="{{item.image}}" class="fav-img" src="{{item.image}}" mode="aspectFill"/>
+          <image wx:if="{{item.thumb || item.image}}" class="fav-img"
+                 src="{{item.thumb ? item.thumb : item.image}}"
+                 mode="aspectFit"
+                 lazy-load="{{index > 3}}"/>
           <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="80rpx" color="#4A7C59"/>
           <view class="fav-unfav" catchtap="remove" data-id="{{item.id}}">
             <icon name="star" size="28rpx" color="#B5452A"/>

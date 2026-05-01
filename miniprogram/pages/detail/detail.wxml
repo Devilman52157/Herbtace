@@ -22,6 +22,31 @@
     <view class="detail-sec">产品介绍</view>
     <view class="detail-text">{{product.desc}}</view>
 
+    <view class="product-archive" wx:if="{{productInfoRows.length}}">
+      <view class="archive-kicker">{{product.cat==='special'?'礼盒档案':'本草档案'}}</view>
+      <view class="archive-title">{{product.name}}</view>
+      <view class="archive-sub">本草性格 · 批次信息 · 道地履历</view>
+
+      <view class="archive-divider"></view>
+
+      <view class="archive-main">
+        <view class="archive-rows">
+          <view class="archive-row" wx:for="{{productInfoRows}}" wx:key="label">
+            <text class="archive-label">{{item.label}}</text>
+            <text class="archive-value">{{item.value}}</text>
+          </view>
+        </view>
+        <view class="archive-project">
+          <view class="archive-project-title">项目</view>
+          <view class="archive-project-line"></view>
+          <text class="archive-project-tag" wx:for="{{product.tags}}" wx:key="*this">{{item}}</text>
+          <text class="archive-project-tag">{{product.origin}}</text>
+        </view>
+      </view>
+
+      <view class="archive-footer">{{productArchiveNote}}</view>
+    </view>
+
     <view class="detail-sec">溯源信息</view>
     <view class="detail-text">本批次由产地直采 · GAP 认证 · SGS 检测合格 · 区块链存证可查</view>
 

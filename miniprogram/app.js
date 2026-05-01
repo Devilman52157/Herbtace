@@ -1,5 +1,6 @@
 // app.js
 const { API_BASE_URL } = require('./utils/config.js');
+const { BRAND_FONT_FAMILY, BRAND_FONT_SOURCE } = require('./utils/brand-font-data.js');
 const { getStoredUser, syncGlobalUser } = require('./utils/auth.js');
 
 const FONT_SIZE_KEY = 'app_font_size';
@@ -60,28 +61,33 @@ function injectFontSize(PageCtor) {
 
 injectFontSize(Page);
 
+function loadBrandFont(source, onFail) {
+  try {
+    wx.loadFontFace({
+      family: BRAND_FONT_FAMILY,
+      source,
+      global: true,
+      scopes: ['webview', 'native'],
+      success: () => console.log('[font] loaded', BRAND_FONT_FAMILY),
+      fail: (e) => {
+        console.warn('[font] load failed', BRAND_FONT_FAMILY, e && e.errMsg);
+        if (onFail) onFail();
+      }
+    });
+  } catch (e) {
+    if (onFail) onFail();
+  }
+}
+
 App({
   onLaunch() {
     syncGlobalUser(getStoredUser());
 
-    // Fonts are downloaded from the same Cloud Run domain used by the AI API.
+    // ------- 品牌标题字体：优先加载内嵌子集，失败时回退远程字体 -------
     const fontBaseUrl = API_BASE_URL.replace(/\/+$/, '');
-    const remoteFonts = [
-      { family: 'LXGW WenKai', source: `${fontBaseUrl}/fonts/lxgw-wenkai-lite.ttf` },
-      { family: 'Ma Shan Zheng', source: `${fontBaseUrl}/fonts/ma-shan-zheng.ttf` },
-    ];
-    remoteFonts.forEach(f => {
-      try {
-        wx.loadFontFace({
-          family: f.family,
-          source: `url("${f.source}")`,
-          global: true,
-          scopes: ['webview', 'native'],
-          success: () => console.log('[font] loaded', f.family),
-          fail: (e) => console.warn('[font] fallback', f.family, e && e.errMsg)
-        });
-      } catch (e) { /* 旧版本不支持，忽略 */ }
-    });
+    const remoteFontSource = `url("${fontBaseUrl}/fonts/ma-shan-zheng.ttf")`;
+
+    loadBrandFont(BRAND_FONT_SOURCE, () => loadBrandFont(remoteFontSource));
   },
   globalData: {
     fontSizeKey: FONT_SIZE_KEY,

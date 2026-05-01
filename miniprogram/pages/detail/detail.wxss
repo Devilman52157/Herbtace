@@ -43,6 +43,106 @@
   font-size: calc(24rpx * var(--fs-scale, 1)); color: #5C4A3A; line-height: 1.9; letter-spacing: 1rpx;
 }
 
+.product-archive {
+  margin-top: 34rpx;
+  padding: 30rpx;
+  background: #8F3A2B;
+  border: 2rpx solid rgba(196,147,90,0.48);
+  border-radius: 12rpx;
+  color: #FFF7EA;
+  box-shadow: 0 14rpx 34rpx rgba(92,74,58,0.18);
+}
+.archive-kicker {
+  color: #E8D5B5;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+.archive-title {
+  margin-top: 8rpx;
+  font-family: "Ma Shan Zheng","STKaiti","KaiTi",serif;
+  color: #FFF7EA;
+  font-size: calc(46rpx * var(--fs-scale, 1));
+  letter-spacing: 3rpx;
+  line-height: 1.25;
+}
+.archive-sub {
+  margin-top: 8rpx;
+  color: rgba(255,247,234,0.76);
+  font-size: calc(22rpx * var(--fs-scale, 1));
+  letter-spacing: 1rpx;
+}
+.archive-divider {
+  height: 2rpx;
+  margin: 26rpx 0;
+  background: rgba(232,213,181,0.5);
+}
+.archive-main {
+  display: flex;
+  gap: 24rpx;
+  align-items: stretch;
+}
+.archive-rows {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.archive-row {
+  display: flex;
+  gap: 20rpx;
+  align-items: flex-start;
+}
+.archive-label {
+  width: 128rpx;
+  flex: 0 0 128rpx;
+  color: rgba(255,247,234,0.72);
+  font-size: calc(22rpx * var(--fs-scale, 1));
+  line-height: 1.5;
+}
+.archive-value {
+  flex: 1;
+  min-width: 0;
+  color: #FFF7EA;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  line-height: 1.5;
+  word-break: break-all;
+}
+.archive-project {
+  width: 172rpx;
+  padding: 18rpx;
+  border: 2rpx solid rgba(255,247,234,0.68);
+  box-sizing: border-box;
+}
+.archive-project-title {
+  color: #FFF7EA;
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+.archive-project-line {
+  height: 2rpx;
+  margin: 12rpx 0 16rpx;
+  background: rgba(255,247,234,0.55);
+}
+.archive-project-tag {
+  display: block;
+  color: rgba(255,247,234,0.86);
+  font-size: calc(21rpx * var(--fs-scale, 1));
+  line-height: 1.45;
+  margin-bottom: 8rpx;
+}
+.archive-footer {
+  margin-top: 26rpx;
+  padding-top: 22rpx;
+  border-top: 2rpx solid rgba(232,213,181,0.42);
+  color: rgba(255,247,234,0.88);
+  font-size: calc(24rpx * var(--fs-scale, 1));
+  line-height: 1.75;
+  letter-spacing: 1rpx;
+}
+
 .trace-entry {
   margin-top: 32rpx; padding: 28rpx;
   background: rgba(74,124,89,0.08); border: 2rpx dashed rgba(74,124,89,0.3);

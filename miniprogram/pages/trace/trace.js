@@ -21,33 +21,6 @@ function bcHashFor(batch) {
   return '0x' + hex.slice(0, 4) + '…' + hex.slice(4, 8);
 }
 
-function getProductIdFromOptions(options = {}) {
-  if (options.id || options.productId || options.pid) {
-    return options.id || options.productId || options.pid;
-  }
-
-  if (!options.scene) return '';
-
-  let scene = String(options.scene).trim();
-  try { scene = decodeURIComponent(scene); } catch (e) {}
-
-  if (/^[A-Za-z0-9_-]+$/.test(scene)) return scene;
-
-  const query = scene.includes('?') ? scene.split('?').pop() : scene;
-  const pairs = query.split(/[&;]/);
-  for (let i = 0; i < pairs.length; i++) {
-    const pair = pairs[i];
-    const eq = pair.indexOf('=');
-    if (eq < 0) continue;
-    const key = pair.slice(0, eq);
-    let value = pair.slice(eq + 1);
-    try { value = decodeURIComponent(value); } catch (e) {}
-    if (['id', 'pid', 'productId', 'p'].includes(key)) return value;
-  }
-
-  return scene;
-}
-
 Page({
   data: { product: null, infoRows: [], timeline: [], hash: '0x8f…3a9b' },
 

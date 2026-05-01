@@ -1,5 +1,4 @@
 const { PRODUCTS, JIEQI, getJieqiStatus, formatJieqiDate } = require('../../utils/data.js');
-const { getStoredUser, loginAsDemo } = require('../../utils/auth.js');
 
 const JQ_ICON = {
   lichun:'sprout', yushui:'sprout', jingzhe:'sprout',
@@ -25,13 +24,6 @@ function buildJieqiList() {
   }));
 }
 
-function markLoginPromptDismissed() {
-  const app = getApp();
-  if (app && app.globalData) {
-    app.globalData.loginPromptDismissed = true;
-  }
-}
-
 Page({
   data: {
     activeCat: 'all',
@@ -52,9 +44,7 @@ Page({
     ],
     picks: [],
     jieqiList: [],
-    currentJieqiViewId: '',
-    showLoginModal: false,
-    loginLoading: false
+    currentJieqiViewId: ''
   },
 
   onShow() {
@@ -62,7 +52,6 @@ Page({
       this.getTabBar().setData({ selected: 0 });
     }
     this.refreshJieqiStrip();
-    this.maybeShowLoginModal();
   },
 
   onLoad() {
@@ -81,48 +70,8 @@ Page({
       jieqiList
     }, () => {
       this.scrollToCurrentJieqi();
-      this.maybeShowLoginModal();
     });
   },
-
-  maybeShowLoginModal() {
-    const app = getApp();
-    const dismissed = app && app.globalData && app.globalData.loginPromptDismissed;
-
-    if (getStoredUser()) {
-      if (this.data.showLoginModal) this.setData({ showLoginModal: false });
-      return;
-    }
-
-    if (!dismissed && !this.data.showLoginModal) {
-      this.setData({ showLoginModal: true });
-    }
-  },
-
-  handleLoginModalDemo() {
-    if (this.data.loginLoading) return;
-
-    this.setData({ loginLoading: true });
-    loginAsDemo()
-      .then(() => {
-        markLoginPromptDismissed();
-        this.setData({ showLoginModal: false });
-        wx.showToast({ title: '演示登录成功', icon: 'success' });
-      })
-      .catch(() => {
-        wx.showToast({ title: '演示登录失败，请重试', icon: 'none' });
-      })
-      .finally(() => {
-        this.setData({ loginLoading: false });
-      });
-  },
-
-  closeLoginModal() {
-    markLoginPromptDismissed();
-    this.setData({ showLoginModal: false });
-  },
-
-  noop() {},
 
   refreshJieqiStrip() {
     if (!this.data.jieqiList.length) return;

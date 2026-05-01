@@ -51,7 +51,10 @@
           data-id="{{item.id}}" bindtap="goDetail" hover-class="hover-dim">
       <view class="shop-item-img">
         <view wx:if="{{item.promoTag}}" class="shop-promo-tag {{item.salePrice?'sale':''}}">{{item.promoTag}}</view>
-        <image wx:if="{{item.image}}" class="shop-product-img" src="{{item.image}}" mode="aspectFill"/>
+        <image wx:if="{{item.thumb || item.image}}" class="shop-product-img"
+               src="{{item.thumb ? item.thumb : item.image}}"
+               mode="aspectFit"
+               lazy-load="{{index > 3}}"/>
         <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="96rpx" color="#4A7C59"/>
         <view class="shop-item-fav {{favs[item.id]?'on':''}}" catchtap="toggleFav" data-id="{{item.id}}">
           <icon name="star" size="28rpx" color="{{favs[item.id]?'#B5452A':'#8B7A6B'}}"/>

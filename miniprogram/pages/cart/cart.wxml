@@ -12,7 +12,9 @@
   <view wx:else>
     <view class="cart-item" wx:for="{{items}}" wx:key="id">
       <view class="cart-thumb">
-        <image wx:if="{{item.image}}" class="cart-img" src="{{item.image}}" mode="aspectFill"/>
+        <image wx:if="{{item.thumb || item.image}}" class="cart-img"
+               src="{{item.thumb ? item.thumb : item.image}}"
+               mode="aspectFit"/>
         <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="60rpx" color="#4A7C59"/>
       </view>
       <view class="cart-body">

@@ -76,7 +76,10 @@
     <view class="product-card" wx:for="{{picks}}" wx:key="id"
           data-id="{{item.id}}" bindtap="goTrace" hover-class="card-hover">
       <view class="p-thumb">
-        <image wx:if="{{item.image}}" class="p-img" src="{{item.image}}" mode="aspectFit"/>
+        <image wx:if="{{item.thumb || item.image}}" class="p-img"
+               src="{{item.thumb ? item.thumb : item.image}}"
+               mode="aspectFit"
+               lazy-load="{{index > 1}}"/>
         <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="72rpx" color="#4A7C59"/>
       </view>
       <view class="p-body">
@@ -98,57 +101,4 @@
 
   <view class="foot-more" bindtap="goShop" data-cat="all">查看全部商品 </view>
   <view class="page-bottom"></view>
-
-  <view wx:if="{{showLoginModal}}" class="login-modal" catchtouchmove="noop">
-    <view class="login-mask" bindtap="closeLoginModal"></view>
-    <view class="login-sheet card-corner" catchtap="noop">
-      <button class="login-close" bindtap="closeLoginModal" hover-class="login-icon-hover" aria-label="关闭登录弹窗">
-        <icon name="close" size="30rpx" color="#8B7A6B"/>
-      </button>
-
-      <view class="login-sheet-head">
-        <image class="login-sheet-logo" src="/assets/brand/logo-cloud-light.png" mode="aspectFit"/>
-        <view class="login-seal-mark">
-          <icon name="shield" size="48rpx" color="#E8D5B5"/>
-        </view>
-        <view class="login-kicker">会员身份</view>
-        <view class="login-title cn-brush">云上祁州</view>
-        <view class="login-subtitle">登录后同步积分、订单与溯源记录</view>
-      </view>
-
-      <view class="login-benefit-list">
-        <view class="login-benefit-item">
-          <view class="login-benefit-ic"><icon name="coin" size="30rpx" color="#B5452A"/></view>
-          <text>扫码得积分，会员权益随身带走</text>
-        </view>
-        <view class="login-benefit-item">
-          <view class="login-benefit-ic"><icon name="chain" size="30rpx" color="#4A7C59"/></view>
-          <text>保存溯源记录与问诊历史</text>
-        </view>
-        <view class="login-benefit-item">
-          <view class="login-benefit-ic"><icon name="ticket" size="30rpx" color="#C4935A"/></view>
-          <text>优惠券、订单和收藏自动同步</text>
-        </view>
-      </view>
-
-      <button
-        class="login-wechat-btn"
-        loading="{{loginLoading}}"
-        disabled="{{loginLoading}}"
-        bindtap="handleLoginModalDemo"
-        hover-class="login-btn-hover"
-      >
-        <view class="login-wechat-inner">
-          <icon name="user" size="36rpx" color="#FFE7A8"/>
-          <text>{{loginLoading ? '进入中' : '演示登录'}}</text>
-        </view>
-      </button>
-
-      <button class="login-later" bindtap="closeLoginModal" hover-class="login-later-hover">暂不登录，先逛逛</button>
-      <view class="login-note">
-        <icon name="shield" size="22rpx" color="#8B7A6B"/>
-        <text>演示阶段仅保存本地身份，不触发微信授权</text>
-      </view>
-    </view>
-  </view>
 </view>

@@ -28,7 +28,10 @@
   <view class="jieqi-product-card" wx:for="{{recProducts}}" wx:key="id"
         data-id="{{item.id}}" bindtap="goDetail">
     <view class="jp-thumb">
-      <image wx:if="{{item.image}}" class="jp-img" src="{{item.image}}" mode="aspectFill"/>
+      <image wx:if="{{item.thumb || item.image}}" class="jp-img"
+             src="{{item.thumb ? item.thumb : item.image}}"
+             mode="aspectFit"
+             lazy-load="{{index > 1}}"/>
       <icon wx:else name="{{item.cat==='easy'?'tea':item.cat==='home'?'sprout':'gift'}}" size="60rpx" color="#4A7C59"/>
     </view>
     <view class="jp-body">

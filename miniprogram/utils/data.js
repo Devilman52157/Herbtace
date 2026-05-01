@@ -1,7 +1,7 @@
 // 产品、节气、专家数据（从 HTML 版本迁移）
 // 保持与原版 P / JIEQI / EXPERTS 一致
 
-const PRODUCT_IMAGES = require('./product-images.js');
+const { PRODUCT_IMAGES, PRODUCT_THUMBS } = require('./product-images.js');
 
 const PRODUCTS = {
   easy1: { id:'easy1', cat:'easy', icon:'🌼', name:'单味祁菊花茶包', origin:'河北安国', batch:'BCS-2026-0412-001', price:9.9, unit:'盒（10包）', desc:'安国道地祁菊花，低温烘焙锁香。三角独立茶包，热水即冲即饮，清肝明目，日常轻补首选。', tags:['GAP道地','独立茶包','清肝明目'],
@@ -123,22 +123,6 @@ const PRODUCTS = {
       { date:'2026年4月5日',   title:'礼盒包装', desc:'手工新中式礼盒，环保竹浆纸材质。',                media:'video', done:true },
       { date:'2026年4月7日',   title:'出库发运', desc:'防震气柱袋出库，配手写贺卡与药典。',                            done:false }
     ] },
-  spec3: { id:'spec3', cat:'special', icon:'🌱', name:'祁紫菀超细药用粉', origin:'河北安国', batch:'BCS-2026-0424-016', price:9.9, unit:'袋（200g）', desc:'安国祁紫菀超细研磨，800目药用级细度。润肺下气，煎服、冲泡皆宜。', tags:['道地祁紫菀','800目细粉','润肺下气'],
-    info:{ '产品名称':'祁紫菀超细药用粉','原产地':'河北安国','生产日期':'2026-04-22','保质期':'24个月','净含量':'200g','认证':'GMP认证 · 药用级' },
-    timeline:[
-      { date:'2025年10月',     title:'采挖分级', desc:'安国紫菀基地霜后采挖分级。',                      media:'video', done:true },
-      { date:'2026年3月20日',  title:'检测达标', desc:'重金属、农残、灰分全项药典达标。',                media:'doc',   done:true },
-      { date:'2026年4月10日',  title:'超细研磨', desc:'800目超细研磨，均匀细腻。',                       media:'video', done:true },
-      { date:'2026年4月22日',  title:'出库发运', desc:'食品药品级铝袋避光出库。',                                      done:false }
-    ] },
-  spec4: { id:'spec4', cat:'special', icon:'🌱', name:'祁芥穗超细药用粉', origin:'河北安国', batch:'BCS-2026-0425-017', price:9.9, unit:'袋（200g）', desc:'安国祁芥穗超细研磨，800目药用级。祛风解表，散寒止痒，外敷内服皆可。', tags:['道地祁芥穗','800目细粉','祛风解表'],
-    info:{ '产品名称':'祁芥穗超细药用粉','原产地':'河北安国','生产日期':'2026-04-23','保质期':'24个月','净含量':'200g','认证':'GMP认证 · 药用级' },
-    timeline:[
-      { date:'2025年9月',      title:'采收分级', desc:'安国芥穗基地花穗期采收。',                        media:'video', done:true },
-      { date:'2026年3月22日',  title:'药典复检', desc:'挥发油、农残、重金属全项合格。',                  media:'doc',   done:true },
-      { date:'2026年4月12日',  title:'超细研磨', desc:'800目超细研磨，密封低温过筛。',                   media:'video', done:true },
-      { date:'2026年4月23日',  title:'出库发运', desc:'药品级铝袋避光出库。',                                          done:false }
-    ] },
   spec5: { id:'spec5', cat:'special', icon:'🎁', name:'商务礼盒（祁药+名贵滋补）', origin:'河北安国', batch:'BCS-2026-0426-018', price:259, unit:'盒', desc:'八大祁药精选配野山参片、石斛、花胶等名贵滋补。商务宴请、尊贵馈赠的高端之选。', tags:['名贵滋补','商务尊赠','限量匠造'],
     info:{ '产品名称':'商务礼盒（祁药+名贵滋补）','原产地':'河北安国','生产日期':'2026-04-24','保质期':'12个月','内含':'祁药八品 + 野山参片/石斛/花胶等名贵滋补','认证':'多项认证 · 限量编号' },
     timeline:[
@@ -151,10 +135,10 @@ const PRODUCTS = {
 const JIEQI = [
   { id:'lichun',    name:'立春', date:'2026-02-04', end:'2026-02-17', season:'spring', poem:'东风解冻始萌生', products:['easy2','easy5'],        intro:'立春为岁首，阳气初升，万物复苏。宜舒肝理气，健脾升阳。' },
   { id:'yushui',    name:'雨水', date:'2026-02-18', end:'2026-03-04', season:'spring', poem:'天街小雨润如酥', products:['easy6','easy2'],        intro:'雨水湿气渐生，寒湿交攻。宜健脾祛湿，慎防关节寒痹。' },
-  { id:'jingzhe',   name:'惊蛰', date:'2026-03-05', end:'2026-03-19', season:'spring', poem:'春雷惊百虫蛰伏', products:['spec4','easy6'],        intro:'惊蛰春雷始鸣，阳气上升。宜疏肝养肝，祛风防过敏。' },
+  { id:'jingzhe',   name:'惊蛰', date:'2026-03-05', end:'2026-03-19', season:'spring', poem:'春雷惊百虫蛰伏', products:['easy6','easy3'],        intro:'惊蛰春雷始鸣，阳气上升。宜疏肝养肝，祛风防过敏。' },
   { id:'chunfen',   name:'春分', date:'2026-03-20', end:'2026-04-04', season:'spring', poem:'仲春初四日花朝', products:['easy1','easy3'],        intro:'春分昼夜均分，阴阳调和。宜清肝明目，平衡作息。' },
   { id:'qingming',  name:'清明', date:'2026-04-05', end:'2026-04-19', season:'spring', poem:'清明时节雨纷纷', products:['easy4','easy1','spec2'], intro:'清明天气清朗。宜清肝明目，降肝火，情志当舒。' },
-  { id:'guyu',      name:'谷雨', date:'2026-04-20', end:'2026-05-04', season:'spring', poem:'谷雨润田百谷生', products:['easy6','easy3','spec4'], intro:'谷雨雨生百谷。湿气渐重，宜健脾祛湿，为入夏做准备。' },
+  { id:'guyu',      name:'谷雨', date:'2026-04-20', end:'2026-05-04', season:'spring', poem:'谷雨润田百谷生', products:['easy6','easy3'],         intro:'谷雨雨生百谷。湿气渐重，宜健脾祛湿，为入夏做准备。' },
   { id:'lixia',     name:'立夏', date:'2026-05-05', end:'2026-05-20', season:'summer', poem:'槐柳阴初密',     products:['easy4','spec2'],        intro:'立夏万物繁茂，心火渐旺。宜养心安神，饮食清淡。' },
   { id:'xiaoman',   name:'小满', date:'2026-05-21', end:'2026-06-04', season:'summer', poem:'夏熟作物籽渐盈', products:['easy6','easy5'],        intro:'小满湿热交蒸，宜健脾利湿。' },
   { id:'mangzhong', name:'芒种', date:'2026-06-05', end:'2026-06-20', season:'summer', poem:'芒种忙忙抢收种', products:['easy2','home4'],        intro:'芒种暑湿当令，宜调理脾胃。' },
@@ -163,9 +147,9 @@ const JIEQI = [
   { id:'dashu',     name:'大暑', date:'2026-07-22', end:'2026-08-06', season:'summer', poem:'盛夏极热腐草萤', products:['easy8','home1'],        intro:'大暑心火易旺。宜清热解暑，养阴润肺。' },
   { id:'liqiu',     name:'立秋', date:'2026-08-07', end:'2026-08-22', season:'autumn', poem:'凉风至一叶知秋', products:['easy7','spec1'],        intro:'立秋虽暑未消，已有凉意。宜养肺润燥。' },
   { id:'chushu',    name:'处暑', date:'2026-08-23', end:'2026-09-06', season:'autumn', poem:'处暑天不暑炎',   products:['easy8','spec1'],        intro:'处暑秋燥渐显。宜滋阴润燥。' },
-  { id:'bailu',     name:'白露', date:'2026-09-07', end:'2026-09-22', season:'autumn', poem:'蒹葭苍苍白露为霜', products:['easy7','spec3'],      intro:'白露阴气渐重。宜润肺防燥。' },
+  { id:'bailu',     name:'白露', date:'2026-09-07', end:'2026-09-22', season:'autumn', poem:'蒹葭苍苍白露为霜', products:['easy7','easy8'],      intro:'白露阴气渐重。宜润肺防燥。' },
   { id:'qiufen',    name:'秋分', date:'2026-09-23', end:'2026-10-07', season:'autumn', poem:'秋分一半暑一半寒', products:['easy1','spec2','spec5'], intro:'秋分阴阳平衡。宜清肝明目，调和阴阳。' },
-  { id:'hanlu',     name:'寒露', date:'2026-10-08', end:'2026-10-22', season:'autumn', poem:'寒露凝霜晚桂香', products:['easy2','spec3'],        intro:'寒露气温骤降。宜温补气血，润肺防燥。' },
+  { id:'hanlu',     name:'寒露', date:'2026-10-08', end:'2026-10-22', season:'autumn', poem:'寒露凝霜晚桂香', products:['easy2','easy8'],        intro:'寒露气温骤降。宜温补气血，润肺防燥。' },
   { id:'shuangjiang', name:'霜降', date:'2026-10-23', end:'2026-11-06', season:'autumn', poem:'霜叶红于二月花', products:['home3','home1'],      intro:'霜降秋末。宜温补肝肾。' },
   { id:'lidong',    name:'立冬', date:'2026-11-07', end:'2026-11-21', season:'winter', poem:'立冬小雪万物藏', products:['home2','home5'],        intro:'立冬阳气潜藏。宜温补气血，蓄养精神。' },
   { id:'xiaoxue',   name:'小雪', date:'2026-11-22', end:'2026-12-06', season:'winter', poem:'小雪初霁冷风吹', products:['home2','home1'],        intro:'小雪天寒地冻。宜温补脾肾，驱寒保暖。' },
@@ -254,7 +238,9 @@ const EARN_ITEMS = [
 
 Object.keys(PRODUCTS).forEach(id => {
   const image = PRODUCT_IMAGES[id];
+  const thumb = PRODUCT_THUMBS[id];
   if (image) PRODUCTS[id].image = image;
+  PRODUCTS[id].thumb = thumb || image || '';
 });
 
 module.exports = {

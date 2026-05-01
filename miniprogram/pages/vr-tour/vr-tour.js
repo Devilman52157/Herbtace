@@ -9,6 +9,7 @@ const CAMERA_FOV = 78;
 const MIN_CAMERA_FOV = 48;
 const MAX_CAMERA_FOV = 92;
 const DEG_TO_RAD = Math.PI / 180;
+const IMAGE_LOAD_TIMEOUT = 15000;
 
 const VERTEX_SHADER_SOURCE = `
 attribute vec2 a_position;
@@ -120,10 +121,12 @@ Page({
   },
 
   onUnload() {
+    this.clearImageLoadTimer();
     this.disposeWebGL();
     this.canvas = null;
     this.gl = null;
     this.panoramaImage = null;
+    this.loadingImage = null;
   },
 
   initCanvas() {
@@ -290,37 +293,85 @@ Page({
     this.textureReady = false;
   },
 
-  loadSceneImage(scene) {
-    if (!this.canvas || !this.gl || !scene || !scene.image) return;
+  clearImageLoadTimer() {
+    if (this.imageLoadTimer) {
+      clearTimeout(this.imageLoadTimer);
+      this.imageLoadTimer = null;
+    }
+  },
 
-    const token = `${scene.id}-${Date.now()}`;
-    const image = this.canvas.createImage();
-    this.imageToken = token;
+  failSceneImage(token, reason) {
+    if (this.imageToken !== token) return;
+    this.imageToken = '';
+    this.clearImageLoadTimer();
+    this.panoramaImage = null;
+    this.loadingImage = null;
     this.textureReady = false;
-    this.setData({ photoOk: true, canvasLoading: true });
+    if (reason) console.warn('VR panorama load failed:', reason);
+    this.setData({ photoOk: false, canvasLoading: false });
+  },
+
+  loadCanvasImage(src, token) {
+    const image = this.canvas.createImage();
+    this.loadingImage = image;
 
     image.onload = () => {
       if (this.imageToken !== token) return;
+      this.clearImageLoadTimer();
       if (!this.uploadTexture(image)) {
-        this.panoramaImage = null;
-        this.setData({ photoOk: false, canvasLoading: false });
+        this.failSceneImage(token, 'texture upload failed');
         return;
       }
 
       this.panoramaImage = image;
+      this.loadingImage = null;
       this.panoramaWidth = image.width;
       this.panoramaHeight = image.height;
+      this.imageToken = '';
       this.setData({ photoOk: true, canvasLoading: false });
       this.renderView();
     };
 
-    image.onerror = () => {
-      if (this.imageToken !== token) return;
-      this.panoramaImage = null;
-      this.setData({ photoOk: false, canvasLoading: false });
+    image.onerror = (err) => {
+      this.failSceneImage(token, err && err.errMsg ? err.errMsg : 'canvas image error');
     };
 
-    image.src = scene.image;
+    image.src = src;
+  },
+
+  loadSceneImage(scene) {
+    if (!this.canvas || !this.gl || !scene || !scene.image) return;
+
+    const token = `${scene.id}-${Date.now()}`;
+    this.imageToken = token;
+    this.textureReady = false;
+    this.clearImageLoadTimer();
+    this.setData({ photoOk: true, canvasLoading: true });
+
+    this.imageLoadTimer = setTimeout(() => {
+      this.failSceneImage(token, 'timeout');
+    }, IMAGE_LOAD_TIMEOUT);
+
+    if (/^https?:\/\//i.test(scene.image) && wx.downloadFile) {
+      wx.downloadFile({
+        url: scene.image,
+        timeout: IMAGE_LOAD_TIMEOUT,
+        success: (res) => {
+          if (this.imageToken !== token) return;
+          if (res.statusCode >= 200 && res.statusCode < 300 && res.tempFilePath) {
+            this.loadCanvasImage(res.tempFilePath, token);
+            return;
+          }
+          this.failSceneImage(token, `HTTP ${res.statusCode || 'unknown'}`);
+        },
+        fail: (err) => {
+          this.failSceneImage(token, err && err.errMsg ? err.errMsg : 'download failed');
+        }
+      });
+      return;
+    }
+
+    this.loadCanvasImage(scene.image, token);
   },
 
   switchScene(e) {

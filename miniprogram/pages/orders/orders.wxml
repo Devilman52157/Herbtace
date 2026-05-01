@@ -24,7 +24,9 @@
       <view class="order-items">
         <view class="order-itm" wx:for="{{item.items}}" wx:for-item="it" wx:key="name">
           <view class="order-itm-thumb">
-            <image wx:if="{{it.image}}" class="order-itm-img" src="{{it.image}}" mode="aspectFill"/>
+            <image wx:if="{{it.thumb || it.image}}" class="order-itm-img"
+                   src="{{it.thumb ? it.thumb : it.image}}"
+                   mode="aspectFit"/>
             <icon wx:else name="{{it.cat==='easy'?'tea':it.cat==='home'?'sprout':'gift'}}" size="40rpx" color="#4A7C59"/>
           </view>
           <view class="order-itm-body">

@@ -42,7 +42,10 @@
             wx:for="{{products}}" wx:key="id"
             data-id="{{item.id}}" bindtap="toggle">
         <view class="pd-ic">
-          <image wx:if="{{item.image}}" class="pd-img" src="{{item.image}}" mode="aspectFill"/>
+          <image wx:if="{{item.thumb || item.image}}" class="pd-img"
+                 src="{{item.thumb ? item.thumb : item.image}}"
+                 mode="aspectFit"
+                 lazy-load="{{index > 5}}"/>
           <icon wx:else name="{{item.cat==='easy'?'tea':'sprout'}}" size="44rpx" color="#B5452A"/>
         </view>
         <view class="pd-name">{{item.name}}</view>
