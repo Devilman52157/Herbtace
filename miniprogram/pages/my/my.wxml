@@ -11,7 +11,7 @@
     <view class="my-id">{{displayId}}</view>
     <view wx:if="{{!isLoggedIn}}" class="my-login-chip" bindtap="goLogin" hover-class="hover-dim">
       <icon name="user" size="26rpx" color="#E8D5B5"/>
-      <text>演示登录</text>
+      <text>用户登录</text>
     </view>
     <view wx:else class="my-login-chip logged" bindtap="logout" hover-class="hover-dim">
       <icon name="shield" size="26rpx" color="#E8D5B5"/>
